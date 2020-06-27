@@ -3,30 +3,25 @@ const { User } = require('../models');
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
 
-// Login route
-router.get('/users/:id', (req, res) => {
-  User.findById(req.params.id)
-    .then(user => res.json(user))
-    .catch(err => console.error(err))
-})
-
-// Register route
-router.post('/users', (req, res) => {
-  User.create(req.body)
-    .then(user => res.json(user))
-    .catch(err => console.error(err))
-})
-
-module.exports = router;
 
 // Register Route
-router.post('/users/register', (req, res) => {
-  const { name, email, username } = req.body
-  User.register(new User({ name, email, username }), req.body.password, err => {
-    if (err) { console.error(err) }
-    res.sendStatus(200)
-  })
-})
+// router.post('/users/register', (req, res) => {
+//   const { name, email, username } = req.body
+//   User.register(new User({ name, email, username }), req.body.password, err => {
+//     if (err) { console.error(err) }
+//     res.sendStatus(200)
+//   })
+// })
+
+// router.post('/register', async (req, res) => {
+//   try {
+//     const hashedPassword = await bcrypt.hash(req.body.password, 10);
+//     return
+//   } catch (error) {
+
+//   }
+// });
+
 
 // Login Route
 router.post('/users/login', (req, res) => {
@@ -35,3 +30,5 @@ router.post('/users/login', (req, res) => {
     res.json(user ? jwt.sign({ id: user._id }, process.env.SECRET) : null)
   })
 })
+
+module.exports = router;
