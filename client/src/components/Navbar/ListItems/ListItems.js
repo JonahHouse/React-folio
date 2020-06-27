@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import Button from '@material-ui/core/Button'
+import ModalCustomize from '../Navbar/ModalCustomize'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -15,11 +16,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+
 function ListItemLink(props) {
   return <ListItem button component="a" {...props} />;
 }
 
-// main ListItems Function
+// main ListItems smart Components Function
 const ListItems = () => {
   const classes = useStyles()
 
@@ -27,10 +29,10 @@ const ListItems = () => {
     <div className={classes.root}>
       <List component="nav">
         <ListItem button>
-          <ListItemText primary="NavBar" />
+          <ListItemText primary="NavBar"/>
         </ListItem>
         <ListItem button>
-          <ListItemText primary="Footer" />
+          <ListItemText primary="Footer"/>
         </ListItem>
       </List>
       <Divider />
@@ -39,7 +41,7 @@ const ListItems = () => {
           <ListItemText primary="Form" />
         </ListItem>
         <ListItemLink href="#simple-list">
-          <ListItemText primary="Button" />
+          <ListItemText primary="Button"/>
         </ListItemLink>
       </List>
     </div>
