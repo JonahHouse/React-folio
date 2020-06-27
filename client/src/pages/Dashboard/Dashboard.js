@@ -18,6 +18,9 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import ModalList from '../../components/Navbar/ModalList'
+import ListItems from '../../components/Navbar/ListItems'
+
 
 
 const drawerWidth = 240;
@@ -176,7 +179,8 @@ const Dashboard = () => {
                   noWrap
                   className={classes.title}
                 >
-                  Navbar Edit Section
+                  NavBar Section
+                  <ModalList></ModalList>
                 </Typography>
               </Paper>
             </Grid>
@@ -191,6 +195,7 @@ const Dashboard = () => {
                   className={classes.title}
                 >
                   Header Edit Section
+                  <ModalList></ModalList>
                 </Typography>
               </Paper>
             </Grid>
@@ -205,6 +210,7 @@ const Dashboard = () => {
                   className={classes.title}
                 >
                   Body Edit Section
+                  <ModalList></ModalList>
                 </Typography>
               </Paper>
             </Grid>
@@ -220,6 +226,7 @@ const Dashboard = () => {
                   className={classes.title}
                 >
                   Footer Edit Section
+                  <ModalList></ModalList>
                 </Typography>
               </Paper>
             </Grid>
