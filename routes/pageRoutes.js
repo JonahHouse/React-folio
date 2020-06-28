@@ -30,7 +30,9 @@ router.post('/pages', passport.authenticate('jwt'), (req, res) => {
 })
 
 router.delete('/pages/:id', passport.authenticate('jwt'), (req, res) => {
-  Page.delete({ id: req.body.id }, err => console.error(err))
+  Page.deleteOne({ id: req.body.id }, err => console.error(err))
+    .then(() => res.sendStatus(200))
+    .catch(err => console.error(err))
 })
 
 module.exports = router

@@ -22,8 +22,7 @@ import ModalList from '../../components/Navbar/ModalList'
 import ListItems from '../../components/Navbar/ListItems'
 
 
-
-const drawerWidth = 240;
+const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
   root: {
