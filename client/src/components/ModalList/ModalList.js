@@ -32,7 +32,9 @@ const ModalList = () => {
         <DialogTitle id="form-dialog-title">Components</DialogTitle>
         
         <DialogContent>
-          <ListItems></ListItems>
+          <ListItems>
+            
+          </ListItems>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
