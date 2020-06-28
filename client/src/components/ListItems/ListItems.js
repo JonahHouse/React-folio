@@ -22,15 +22,37 @@ function ListItemLink(props) {
   return <ListItem button component="a" {...props} />;
 }
 
-// main ListItems smart Components Function
+// main ListItems  Function
 const ListItems = () => {
   const classes = useStyles()
-  const {
-    components,
-    handleListItemClick,
-    handleUpdateComponent,
-    handleDeleteComponent
-  } = useContext(ComponentContext)
+  // const {
+  //   components,
+  //   handleListItemClick,
+  //   handleUpdateComponent,
+  //   handleDeleteComponent
+  // } = useContext(ComponentContext)
+  const [componentState, setComponentState] = useState({
+    components: [
+      {
+        name: "NavBar",
+        input: ''
+      },
+      {
+        name: "Footer"
+        input: ''
+      },
+      {
+        name: "Form"
+        input: ''
+      },
+      {
+        name: "Button"
+        input: ''
+
+      }
+    ]
+  })
+
 
   return (
     <div className={classes.root}>
@@ -39,11 +61,11 @@ const ListItems = () => {
           <ListItem 
           button 
           selected={component.id}
-          onClick={handleListItemClick}
+          onClick={handleComponentSelection}
           key={component._id}
           item={component}
            >
-            <ListItemText primary={component.title} />
+            <ListItemText primary={component.name} />
           </ListItem>
       ))}
       </List>

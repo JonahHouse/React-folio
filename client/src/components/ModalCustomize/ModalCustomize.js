@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { makeStyles } from '@material-ui/core/styles'
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -8,7 +9,36 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 const ModalCustomize = () => {
-  const [open, setOpen] = React.useState(false);
+  
+  const [componentState, setComponentState] = useState({
+    components: [
+      {
+        name: "NavBar",
+        input: ''
+      },
+      {
+        name: "Footer"
+        input: ''
+      },
+      {
+        name: "Form"
+        input: ''
+      },
+      {
+        name: "Button"
+        input: ''
+
+      }
+    ]
+  })
+
+  componentState.handleInputChange = event => {
+    setItemState({ ...componentState, [event.target.name]: event.target.value })
+  }
+
+  componentState.handle
+  
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -17,6 +47,7 @@ const ModalCustomize = () => {
   const handleClose = () => {
     setOpen(false);
   }
+
 
   return (
     <div>
