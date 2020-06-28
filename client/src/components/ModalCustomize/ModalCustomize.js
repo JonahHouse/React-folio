@@ -33,10 +33,10 @@ const ModalCustomize = () => {
   })
 
   componentState.handleInputChange = event => {
-    setItemState({ ...componentState, [event.target.name]: event.target.value })
+    setComponentState({ ...componentState, [event.target.name]: event.target.value })
   }
 
-  componentState.handle
+ 
   
   const [open, setOpen] = useState(false);
 
@@ -65,12 +65,16 @@ const ModalCustomize = () => {
             Customize Component here
           </DialogContentText>
           <TextField
+            className={classes.input}
             autoFocus
             margin="dense"
-            id="title"
+            id="componentAttributes"
             label="title"
             type="text"
+            name="component"
             fullWidth
+            value={component}
+            onChange={handleInputChange}
           />
         </DialogContent>
         <DialogActions>

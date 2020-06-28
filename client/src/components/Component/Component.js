@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {} from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
@@ -10,10 +10,10 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import DoneIcon from '@material-ui/icons/Done'
 
 const useStyles = makeStyles(theme => ({
-  done: {
+  selected: {
     backgroundColor: 'green'
   },
-  notDone: {
+  notSelected: {
     backgroundColor: 'gray'
   }
 }))
@@ -21,23 +21,10 @@ const useStyles = makeStyles(theme => ({
 const Component = props => {
   const classes = useStyles()
   return (
-    <ListItem>
-      <ListItemAvatar
-        onClick={() => props.handleUpdateComponent(props.component._id, props.component.isDone)} >
-        <Avatar className={props.component.isDone ? classes.done : classes.notDone} >
-          <DoneIcon />
-        </Avatar>
-      </ListItemAvatar>
-      <ListItemText primary={props.component.text} />
-      <ListItemSecondaryAction>
-        <IconButton
-          edge="end"
-          aria-label="delete"
-          onClick={() => props.handleDeleteItem(props.component._id)} >
-          <DeleteIcon />
-        </IconButton>
-      </ListItemSecondaryAction>
-    </ListItem>
+      <ListItem button
+        onClick={() => props.handleSelectComponent(props.component._id, props.component.isSelected)} >
+        <ListItemText primary={props.component.text} />
+      </ListItem>  
   )
 }
 
