@@ -18,8 +18,8 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import ModalList from '../../components/Navbar/ModalList'
-import ListItems from '../../components/Navbar/ListItems'
+import ModalList from '../../components/ModalList'
+import ListItems from '../../components/ListItems'
 
 
 const drawerWidth = 240
