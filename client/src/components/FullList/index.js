@@ -1,1 +1,1 @@
-export { default } from './FullList.js'
+export { default } from './SelectedListItem.js'

@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-
+ 
 function ListItemLink(props) {
   return <ListItem button component="a" {...props} />;
 }
@@ -25,25 +25,27 @@ function ListItemLink(props) {
 // main ListItems smart Components Function
 const ListItems = () => {
   const classes = useStyles()
+  const {
+    components,
+    handleListItemClick,
+    handleUpdateComponent,
+    handleDeleteComponent
+  } = useContext(ComponentContext)
 
   return (
     <div className={classes.root}>
-      <List component="nav">
-        <ListItem button>
-          <ListItemText primary="NavBar"/>
-        </ListItem>
-        <ListItem button>
-          <ListItemText primary="Footer"/>
-        </ListItem>
-      </List>
-      <Divider />
-      <List component="nav">
-        <ListItem button>
-          <ListItemText primary="Form" />
-        </ListItem>
-        <ListItemLink href="#simple-list">
-          <ListItemText primary="Button"/>
-        </ListItemLink>
+      <List>
+      {components.map(component => (
+          <ListItem 
+          button 
+          selected={component.id}
+          onClick={handleListItemClick}
+          key={component._id}
+          item={component}
+           >
+            <ListItemText primary={component.title} />
+          </ListItem>
+      ))}
       </List>
     </div>
   );
