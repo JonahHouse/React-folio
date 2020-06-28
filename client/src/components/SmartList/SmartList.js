@@ -6,14 +6,17 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import ModalCustomize from "../Navbar/ModalCustomize";
+import ComponentContext from '../../utils/ComponentContext'
 
-class SmartList extends Component {
+const SmartList = () => {
 
-  state = {
-    item1: ""
-  }
+  const {
+    components,
+    handleUpdateComponent,
+    handleDeleteComponent
+    } = useContext(ComponentContext)
 
-  handleItemSelection = () => {
-    this.setState({ })
-  }
+    return (
+      
+    )
 }
