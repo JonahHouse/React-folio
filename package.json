@@ -1,6 +1,7 @@
 {
   "name": "React-folio",
   "version": "1.0.0",
+  "proxy": "http://localhost:3001/",
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -27,6 +28,7 @@
     "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
     "concurrently": "^5.2.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "if-env": "^1.0.4",

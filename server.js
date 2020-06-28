@@ -3,13 +3,15 @@ const express = require('express')
 const { join } = require('path')
 // const bcrypt = require('bcrypt')
 const passport = require('passport')
+const cors = require('cors')
 const { Strategy } = require('passport-local')
 const { Strategy: JWTStrategy, ExtractJwt } = require('passport-jwt')
 
 const app = express()
 const { User } = require('./models')
 
-app.use(express.static(join(__dirname, 'client', 'build')))
+// app.use(express.static(join(__dirname, 'client', 'build')))
+app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
@@ -29,9 +31,15 @@ passport.use(new JWTStrategy({
 
 app.use(require('./routes'))
 
-app.get('*', (req, res) => {
-  res.sendFile(join(__dirname, 'client', 'build', 'index.html'))
-})
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+// app.get('*', (req, res) => {
+//   res.sendFile(join(__dirname, 'client', 'build', 'index.html'))
+// })
 
 require('mongoose').connect('mongodb://localhost/cms_db', {
   useNewUrlParser: true,

@@ -5,10 +5,11 @@ const passport = require('passport')
 
 // Register Route
 router.post('/users/register', (req, res) => {
+  res.json(req.body)
   const { name, email, username } = req.body
   User.register(new User({ name, email, username }), req.body.password, err => {
     if (err) { console.error(err) }
-    res.sendStatus(200)
+    res.json(req.body)
   })
 })
 

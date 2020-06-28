@@ -47,7 +47,10 @@ const Login = () => {
 
   loginState.handleLogin = event => {
     event.preventDefault()
-    axios.post('api/users/login')
+    axios.post('http://localhost:3001/api/users/login', {
+      username: loginState.username,
+      password: loginState.password
+    })
       .then(({ data }) => {
         console.log(data)
         if (data) {
@@ -95,11 +98,12 @@ const Login = () => {
             margin='normal'
             required
             fullWidth
-            id='email'
-            label='Email Address'
-            name='email'
-            autoComplete='email'
+            id='username'
+            label='Username'
+            name='username'
+            autoComplete='username'
             autoFocus
+            onChange={(event) => loginState.handleInputChange(event)}
           />
           <TextField
             variant='outlined'
@@ -111,17 +115,18 @@ const Login = () => {
             type='password'
             id='password'
             autoComplete='current-password'
+            onChange={(event) => loginState.handleInputChange(event)}
           />
           <FormControlLabel
             control={<Checkbox value='remember' color='primary' />}
             label='Remember me'
           />
           <Button
-            type='submit'
             fullWidth
             variant='contained'
             color='primary'
             className={classes.submit}
+            onClick={(event) => loginState.handleLogin(event)}
           >
             Sign In
           </Button>

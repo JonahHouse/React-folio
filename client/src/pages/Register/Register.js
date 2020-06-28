@@ -38,16 +38,24 @@ const Register = () => {
   const classes = useStyles()
 
   const [registerState, setRegisterState] = useState({
-    users: []
+    users: [],
+    handleRegister: '',
+    handleInputChange: ''
   })
 
   registerState.handleInputChange = event => {
     setRegisterState({ ...registerState, [event.target.name]: event.target.value })
+    console.log(registerState);
   }
 
   registerState.handleRegister = event => {
     event.preventDefault()
-    axios.post('api/users/register')
+    axios.post('http://localhost:3001/api/users/register', {
+      name: `${registerState.firstName} ${registerState.lastName}`,
+      email: registerState.email,
+      username: registerState.username,
+      password: registerState.password
+    })
       .then(({ data }) => {
         console.log(data)
         if (data) {
@@ -81,6 +89,7 @@ const Register = () => {
                 id='firstName'
                 label='First Name'
                 autoFocus
+                onChange={(event) => registerState.handleInputChange(event)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -92,6 +101,19 @@ const Register = () => {
                 label='Last Name'
                 name='lastName'
                 autoComplete='lname'
+                onChange={(event) => registerState.handleInputChange(event)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant='outlined'
+                required
+                fullWidth
+                id='username'
+                label='Username'
+                name='username'
+                autoComplete='username'
+                onChange={(event) => registerState.handleInputChange(event)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -103,6 +125,7 @@ const Register = () => {
                 label='Email Address'
                 name='email'
                 autoComplete='email'
+                onChange={(event) => registerState.handleInputChange(event)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -115,15 +138,16 @@ const Register = () => {
                 type='password'
                 id='password'
                 autoComplete='current-password'
+                onChange={(event) => registerState.handleInputChange(event)}
               />
             </Grid>
           </Grid>
           <Button
-            type='submit'
             fullWidth
             variant='contained'
             color='primary'
             className={classes.submit}
+            onClick={(event) => registerState.handleRegister(event)}
           >
             Sign Up
           </Button>
@@ -137,7 +161,7 @@ const Register = () => {
         </form>
       </div>
       <Box mt={5} />
-    </Container>
+    </Container >
   )
 };
 export default Register
