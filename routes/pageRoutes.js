@@ -2,12 +2,12 @@ const router = require('express').Router()
 const { Page, User } = require('../models')
 const passport = require('passport')
 
-router.get('/pages', passport.authenticate('jwt'), (req, res) => {
-  Page.find()
-    .populate('user')
-    .then(pages => res.json(pages))
-    .catch(err => console.error(err))
-})
+//router.get('/pages', passport.authenticate('jwt'), (req, res) => {
+// Page.find()
+//   .populate('user')
+//   .then(pages => res.json(pages))
+//   .catch(err => console.error(err))
+// })
 
 router.post('/pages', passport.authenticate('jwt'), (req, res) => {
   Page.create({

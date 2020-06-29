@@ -30,6 +30,13 @@ router.post('/users/login', (req, res) => {
   })
 })
 
+router.get('/users/username', passport.authenticate('jwt'), (req, res) => {
+  Page.find()
+    .populate('user')
+    .then(pages => res.json(pages))
+    .catch(err => console.error(err))
+})
+
 router.get('/users/pages', passport.authenticate('jwt'), (req, res) => {
   res.json(req.user)
 })
