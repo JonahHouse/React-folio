@@ -23,6 +23,7 @@ import Portfolio from "../../components/Portfolio";
 import ModalInput from "../../components/ModalInput";
 import ElementContext from "../../utils/ElementContext";
 import Button from "@material-ui/core/Button";
+import ModalForm from "../../components/ModalForm";
 
 const drawerWidth = 240;
 
@@ -239,6 +240,7 @@ const Dashboard = () => {
                     className={classes.title}
                   >
                     <ModalInput></ModalInput>
+                    <ModalForm></ModalForm>
                   </Typography>
                 </Paper>
               </Grid>

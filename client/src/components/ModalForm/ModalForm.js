@@ -7,8 +7,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import ElementContext from "../../utils/ElementContext";
+import ElementAPI from "../../utils/ElementAPI";
 
-const ModalInput = () => {
+const ModalForm = () => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -22,6 +23,36 @@ const ModalInput = () => {
   const { element, handleInputChange, handleAddElement } = useContext(
     ElementContext
   );
+  const {
+    getElements,
+    createElement,
+    updateElement,
+    deleteElement,
+  } = ElementAPI;
+
+  const [elementState, setElementState] = useState({
+    element: "",
+    elements: [],
+  });
+
+  elementState.handleInputChange = (event) => {
+    setElementState({
+      ...elementState,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  elementState.handleAddElement = (event) => {
+    event.preventDefault();
+    let elements = JSON.parse(JSON.stringify(elementState.elements));
+    createElement({
+      text: elementState.element,
+    }).then(({ data }) => {
+      elements.push(data);
+      setElementState({ ...elementState, elements, element: "" });
+    });
+    handleClose().catch((err) => console.error(err));
+  };
 
   return (
     <div>
@@ -60,4 +91,4 @@ const ModalInput = () => {
   );
 };
 
-export default ModalInput;
+export default ModalForm;
