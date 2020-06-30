@@ -8,8 +8,9 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import ElementContext from "../../utils/ElementContext";
 import ElementAPI from "../../utils/ElementAPI";
+import Paper from '@material-ui/core/Paper'
 
-const ModalForm = () => {
+const FormModal = () => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -44,20 +45,23 @@ const ModalForm = () => {
 
   elementState.handleAddElement = (event) => {
     event.preventDefault();
+    setOpen(false);
     let elements = JSON.parse(JSON.stringify(elementState.elements));
     createElement({
       text: elementState.element,
     }).then(({ data }) => {
       elements.push(data);
       setElementState({ ...elementState, elements, element: "" });
-    });
-    handleClose().catch((err) => console.error(err));
+      console.log('ping')
+      
+    })
+    .catch((err) => console.error(err));
   };
 
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open form dialog
+        Form Modal
       </Button>
       <Dialog
         open={open}
@@ -68,21 +72,30 @@ const ModalForm = () => {
         <DialogContent>
           <DialogContentText>Text Message </DialogContentText>
 
-          <TextField
-            autoFocus
-            margin="dense"
-            id="element"
-            label="element"
-            type="text"
-            fullWidth
-            onChange={handleInputChange}
-          />
+          
+            <form
+              onSubmit={handleAddElement}
+            >
+              <TextField
+                autoFocus
+                margin="dense"
+                id="element"
+                label="element"
+                type="text"
+                fullWidth
+                onChange={handleInputChange}
+              />
+            </form>
+         
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="secondary">
             Cancel
           </Button>
-          <Button onClick={handleAddElement} color="primary">
+          <Button
+            onClick={handleAddElement}
+            color="primary"
+          >
             Update
           </Button>
         </DialogActions>
@@ -91,4 +104,4 @@ const ModalForm = () => {
   );
 };
 
-export default ModalForm;
+export default FormModal;

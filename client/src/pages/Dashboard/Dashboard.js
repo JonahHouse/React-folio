@@ -23,7 +23,7 @@ import Portfolio from "../../components/Portfolio";
 import ModalInput from "../../components/ModalInput";
 import ElementContext from "../../utils/ElementContext";
 import Button from "@material-ui/core/Button";
-import ModalForm from "../../components/ModalForm";
+import FormModal from "../../components/FormModal";
 
 const drawerWidth = 240;
 
@@ -105,6 +105,7 @@ const useStyles = makeStyles((theme) => ({
     height: 240,
   },
 }));
+
 const { getElements, createElement, updateElement, deleteElement } = ElementAPI;
 
 const Dashboard = () => {
@@ -129,17 +130,17 @@ const Dashboard = () => {
     });
   };
 
-  elementState.handleAddElement = (event) => {
+ elementState.handleAddElement = (event) => {
     event.preventDefault();
     let elements = JSON.parse(JSON.stringify(elementState.elements));
     createElement({
       text: elementState.element,
     })
-      .then(({ data }) => {
-        elements.push(data);
-        setElementState({ ...elementState, elements, element: "" });
-      })
-      .catch((err) => console.error(err));
+    .then(({ data }) => {
+      elements.push(data);
+      setElementState({ ...elementState, elements, element: "" });
+    })
+    .catch((err) => console.error(err));
   };
 
   elementState.handleUpdateElement = (id) => {
@@ -170,6 +171,7 @@ const Dashboard = () => {
       })
       .catch((err) => console.error(err));
   }, []);
+
   return (
     <ElementContext.Provider value={elementState}>
       <div className={classes.root}>
@@ -240,7 +242,7 @@ const Dashboard = () => {
                     className={classes.title}
                   >
                     <ModalInput></ModalInput>
-                    <ModalForm></ModalForm>
+                    <FormModal></FormModal>
                   </Typography>
                 </Paper>
               </Grid>

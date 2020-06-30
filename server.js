@@ -34,7 +34,7 @@ app.get('*', (req, res) => {
   res.sendFile(join(__dirname, 'client', 'build', 'index.html'))
 })
 
-require('mongoose').connect("mongodb://localhost:27017/cms_db", {
+require('mongoose').connect("mongodb://localhost/cms_db", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
