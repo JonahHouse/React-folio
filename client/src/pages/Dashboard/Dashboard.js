@@ -132,6 +132,7 @@ const Dashboard = () => {
 
  elementState.handleAddElement = (event) => {
     event.preventDefault();
+    setOpen(true);
     let elements = JSON.parse(JSON.stringify(elementState.elements));
     createElement({
       text: elementState.element,
