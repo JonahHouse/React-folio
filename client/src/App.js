@@ -2,14 +2,12 @@ import React from 'react'
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Redirect
+  Route
 } from 'react-router-dom'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Navbar from './components/Navbar'
 import Dashboard from './pages/Dashboard'
-import Form from './elements/Form'
 
 const App = () => {
 
@@ -19,21 +17,21 @@ const App = () => {
         <Navbar />
         <Switch>
           <Route exact path="/">
-            {(localStorage.getItem('user')) ? <h1>Home</h1> : <Redirect to="/login"></Redirect>}
+            <h1>Home</h1>
           </Route>
           <Route exact path="/login">
-            {(localStorage.getItem('user')) ? <Redirect to="/dashboard"></Redirect> : <Login />}
+            <Login />
           </Route>
           <Route path="/register">
-            {(localStorage.getItem('user')) ? <Redirect to="/dashboard"></Redirect> : <Register />}
+            <Register />
           </Route>
           <Route exact path="/Dashboard">
-            {(localStorage.getItem('user')) ? <Dashboard /> : <Redirect to="/login"></Redirect>}
+            <Dashboard />
           </Route>
         </Switch>
       </div>
     </Router>
-  )
+  );
 }
 
 export default App

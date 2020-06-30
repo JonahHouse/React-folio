@@ -1,1 +1,1 @@
-export { default } from './ModalCustomize.js'
+export { default } from './ModalInput.js'
