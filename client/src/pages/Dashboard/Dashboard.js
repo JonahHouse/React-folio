@@ -1,32 +1,105 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import Box from '@material-ui/core/Box';
-import AppBar from '@material-ui/core/AppBar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
-import Button from '@material-ui/core/Button';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import ModalList from '../../components/ModalList'
-import ListItems from '../../components/ListItems'
+import React, { useState, useEffect } from 'react'
+import clsx from 'clsx'
+import { makeStyles } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Drawer from '@material-ui/core/Drawer'
+import Box from '@material-ui/core/Box'
+import Button from '@material-ui/core/Button'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import Badge from '@material-ui/core/Badge'
+import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+import Link from '@material-ui/core/Link'
+import MenuIcon from '@material-ui/icons/Menu'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import NotificationsIcon from '@material-ui/icons/Notifications'
+import TextField from '@material-ui/core/TextField'
+import FormDialog from '../../components/Dialog'
+import ElementAPI from '../../utils/ElementAPI'
+import Portfolio from '../../components/Portfolio'
+import ModalInput from '../../components/ModalInput'
+
+const {
+  getElement,
+  createElement,
+  updateElement,
+  deleteElement
+} = ElementAPI
+
+
+const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
-
   root: {
     display: 'flex',
   },
-
+  toolbar: {
+    paddingRight: 24, // keep right padding when drawer closed
+  },
+  toolbarIcon: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar,
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginRight: 36,
+  },
+  menuButtonHidden: {
+    display: 'none',
+  },
+  title: {
+    flexGrow: 1,
+  },
+  drawerPaper: {
+    position: 'relative',
+    whiteSpace: 'nowrap',
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerPaperClose: {
+    overflowX: 'hidden',
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    width: theme.spacing(7),
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(9),
+    },
+  },
+  appBarSpacer: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    height: '100vh',
+    overflow: 'auto',
+  },
   container: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
@@ -39,88 +112,199 @@ const useStyles = makeStyles((theme) => ({
   },
   fixedHeight: {
     height: 240,
-  }
-
+  },
 }));
 
 const Dashboard = () => {
   const classes = useStyles();
-
+  const [open, setOpen] = React.useState(true);
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  function signOut() {
+    localStorage.removeItem('user');
+    window.location = "/"
+  };
+  const [elementState, setElementState] = useState({
+    element: '',
+    elements: []
+  })
 
+  elementState.handleInputChange = event => {
+    setElementState({ ...elementState, [event.target.name]: event.target.value })
+  }
+
+  elementState.handleAddElement = event => {
+    event.preventDefault()
+    let elements = JSON.parse(JSON.stringify(elementState.elements))
+    createItem({
+      text: elementState.element,
+
+    })
+      .then(({ data }) => {
+        elements.push(data)
+        setItemState({ ...elementState, elements, element: '' })
+      })
+      .catch(err => console.error(err))
+  }
+
+  elementState.handleUpdateElement = (id) => {
+    updateItem(id)
+      .then(() => {
+        const elements = JSON.parse(JSON.stringify(elementState.elements))
+        setElementState({ ...elementState, elements })
+      })
+      .catch(err => console.error(err))
+  }
+
+  elementState.handleDeleteElement = id => {
+    deleteElement(id)
+      .then(() => {
+        const elements = JSON.parse(JSON.stringify(elementState.elements))
+        const elementsFiltered = elements.filter(element => element._id !== id)
+        setElementState({ ...elementState, elements: elementsFiltered })
+      })
+      .catch(err => console.error(err))
+  }
+
+  useEffect(() => {
+    getElements()
+      .then(({ data }) => {
+        setElementState({ ...elementState, elements: data })
+      })
+      .catch(err => console.error(err))
+  }, [])
   return (
-    <div className={classes.root}>
-      <CssBaseline />
+    <ElementContext.Provider value={elementState}>
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar
+          position="absolute"
+          className={clsx(classes.appBar, open && classes.appBarShift)}
+        >
+          <Toolbar className={classes.toolbar}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              className={clsx(
+                classes.menuButton,
+                open && classes.menuButtonHidden
+              )}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.title}
+            >
+              Dashboard
+          </Typography>
+            <Button color="inherit" onClick={() => signOut()}>Sign Out</Button>
+          </Toolbar>
+        </AppBar>
 
-      <main className={classes.content}>
 
-        <Container className={classes.container}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <Typography
-                  component="h1"
-                  variant="h6"
-                  color="inherit"
-                  noWrap
-                  className={classes.title}
-                >
-                  NavBar Section
-                  <ModalList></ModalList>
-                </Typography>
-              </Paper>
-            </Grid>
-            {/* Header Edit Section */}
-            <Grid item xs={12}>
-              <Paper className={fixedHeightPaper}>
-                <Typography
-                  component="h1"
-                  variant="h6"
-                  color="inherit"
-                  noWrap
-                  className={classes.title}
-                >
-                  Header Edit Section
-                  <ModalList></ModalList>
-                </Typography>
-              </Paper>
-            </Grid>
-            {/* Body Edit Section */}
-            <Grid item xs={12}>
-              <Paper className={fixedHeightPaper}>
-                <Typography
-                  component="h1"
-                  variant="h6"
-                  color="inherit"
-                  noWrap
-                  className={classes.title}
-                >
-                  Body Edit Section
-                  <ModalList></ModalList>
-                </Typography>
-              </Paper>
-            </Grid>
 
-            {/* Footer Edit Section */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <Typography
-                  component="h1"
-                  variant="h6"
-                  color="inherit"
-                  noWrap
-                  className={classes.title}
-                >
-                  Footer Edit Section
-                  <ModalList></ModalList>
+        {open ?
+
+          <Drawer
+            variant="permanent"
+            classes={{
+              paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+            }}
+            open={open}
+          >
+            <div className={classes.toolbarIcon}>
+              <IconButton onClick={handleDrawerClose}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </div>
+            <List id="">
+              {['Paragraph', 'Title', 'Button', 'Card', 'Form', 'Image', 'Footer'].map((text, index) => (
+                <ListItem button key={text}>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
+          </Drawer> : null}
+
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          <Container maxWidth="lg" className={classes.container}>
+            <Grid container spacing={3}>
+              {/* Navbar Edit Section */}
+              <Grid item xs={12}>
+                <Paper className={classes.paper}>
+                  <Typography
+                    component="h1"
+                    variant="h6"
+                    color="inherit"
+                    noWrap
+                    className={classes.title}
+                  >
+                    <ModalInput></ModalInput>
+                  </Typography>
+                </Paper>
+              </Grid>
+              {/* Header Edit Section */}
+              <Grid item xs={12}>
+                <Paper className={fixedHeightPaper}>
+                  <Typography
+                    component="h1"
+                    variant="h6"
+                    color="inherit"
+                    noWrap
+                    className={classes.title}
+                  >
+                    Header Edit Section
                 </Typography>
-              </Paper>
+                </Paper>
+              </Grid>
+              {/* Body Edit Section */}
+              <Grid item xs={12}>
+                <Paper className={fixedHeightPaper}>
+                  <Typography
+                    component="h1"
+                    variant="h6"
+                    color="inherit"
+                    noWrap
+                    className={classes.title}
+                  >
+                    <Portfolio></Portfolio>
+                  </Typography>
+                </Paper>
+              </Grid>
+
+              {/* Footer Edit Section */}
+              <Grid item xs={12}>
+                <Paper className={classes.paper}>
+                  <Typography
+                    component="h1"
+                    variant="h6"
+                    color="inherit"
+                    noWrap
+                    className={classes.title}
+                  >
+                    Footer Edit Section
+                </Typography>
+                </Paper>
+              </Grid>
             </Grid>
-          </Grid>
-          <Box pt={4}></Box>
-        </Container>
-      </main>
-    </div >
+            <Box pt={4}></Box>
+          </Container>
+        </main>
+      </div>
+    </ElementContext.Provider>
   )
 }
+
 export default Dashboard

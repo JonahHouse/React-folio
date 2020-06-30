@@ -26,6 +26,35 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = () => {
   const classes = useStyles()
+  let links;
+
+  function signOut() {
+    localStorage.removeItem('user');
+    window.location = "/"
+  };
+
+  if (localStorage.getItem('user')) {
+    links =
+      <div>
+        <Button color="inherit" onClick={() => signOut()}>Sign Out</Button>
+        <Link to="/dashboard" className={classes.link}>
+          <Button color="inherit">Dashboard</Button>
+        </Link>
+      </div >
+  } else {
+    links =
+      <div>
+        <Link to="/login" className={classes.link}>
+          <Button color="inherit">Login</Button>
+        </Link>
+        <Link to="/register" className={classes.link}>
+          <Button color="inherit">Sign Up</Button>
+        </Link>
+        <Link to="/dashboard" className={classes.link}>
+          <Button color="inherit">Dashboard</Button>
+        </Link>
+      </div>
+  }
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -43,15 +72,7 @@ const Navbar = () => {
               ReactFolio
             </Link>
           </Typography>
-          <Link to="/login" className={classes.link}>
-            <Button color="inherit">Login</Button>
-          </Link>
-          <Link to="/register" className={classes.link}>
-            <Button color="inherit">SignUp</Button>
-          </Link>
-          <Link to="/dashboard" className={classes.link}>
-            <Button color="inherit">Dashboard</Button>
-          </Link>
+          {links}
         </Toolbar>
       </AppBar>
     </div>

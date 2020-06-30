@@ -5,22 +5,12 @@ const passport = require('passport')
 
 // Register Route
 router.post('/users/register', (req, res) => {
-  res.json(req.body)
   const { name, email, username } = req.body
   User.register(new User({ name, email, username }), req.body.password, err => {
     if (err) { console.error(err) }
     res.json(req.body)
   })
 })
-
-// router.post('/register', async (req, res) => {
-//   try {
-//     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-//     return
-//   } catch (error) {
-
-//   }
-// });
 
 // Login Route
 router.post('/users/login', (req, res) => {
