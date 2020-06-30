@@ -1,12 +1,11 @@
-const { model, Schema } = require('mongoose')
+const { model, Schema } = require("mongoose");
 
 const Element = new Schema({
-  type: String,
-  attributes: [{ type: Object }],
+  text: String,
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
-  }
-})
+    ref: "User",
+  },
+});
 
-model.exports = model('Element', Element)
+model.exports = model("Element", Element);

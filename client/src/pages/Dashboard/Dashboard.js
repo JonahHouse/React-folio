@@ -1,58 +1,48 @@
-import React, { useState, useEffect } from 'react'
-import clsx from 'clsx'
-import { makeStyles } from '@material-ui/core/styles'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Drawer from '@material-ui/core/Drawer'
-import Box from '@material-ui/core/Box'
-import Button from '@material-ui/core/Button'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import Badge from '@material-ui/core/Badge'
-import Container from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
-import Link from '@material-ui/core/Link'
-import MenuIcon from '@material-ui/icons/Menu'
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import NotificationsIcon from '@material-ui/icons/Notifications'
-import TextField from '@material-ui/core/TextField'
-import FormDialog from '../../components/Dialog'
-import ElementAPI from '../../utils/ElementAPI'
-import Portfolio from '../../components/Portfolio'
-import ModalInput from '../../components/ModalInput'
+import React, { useState, useEffect } from "react";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Drawer from "@material-ui/core/Drawer";
+import Box from "@material-ui/core/Box";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import List from "@material-ui/core/List";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+import IconButton from "@material-ui/core/IconButton";
+import Badge from "@material-ui/core/Badge";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Link from "@material-ui/core/Link";
+import MenuIcon from "@material-ui/icons/Menu";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import ElementAPI from "../../utils/ElementAPI";
+import Portfolio from "../../components/Portfolio";
+import ModalInput from "../../components/ModalInput";
+import ElementContext from "../../utils/ElementContext";
+import Button from "@material-ui/core/Button";
 
-const {
-  getElement,
-  createElement,
-  updateElement,
-  deleteElement
-} = ElementAPI
-
-
-const drawerWidth = 240
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: "flex",
   },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
   },
   toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: "0 8px",
     ...theme.mixins.toolbar,
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
+    transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
@@ -60,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
+    transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -69,36 +59,36 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 36,
   },
   menuButtonHidden: {
-    display: 'none',
+    display: "none",
   },
   title: {
     flexGrow: 1,
   },
   drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
+    position: "relative",
+    whiteSpace: "nowrap",
     width: drawerWidth,
-    transition: theme.transitions.create('width', {
+    transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   drawerPaperClose: {
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
+    overflowX: "hidden",
+    transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     width: theme.spacing(7),
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up("sm")]: {
       width: theme.spacing(9),
     },
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
+    height: "100vh",
+    overflow: "auto",
   },
   container: {
     paddingTop: theme.spacing(4),
@@ -106,14 +96,15 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
+    display: "flex",
+    overflow: "auto",
+    flexDirection: "column",
   },
   fixedHeight: {
     height: 240,
   },
 }));
+const { getElements, createElement, updateElement, deleteElement } = ElementAPI;
 
 const Dashboard = () => {
   const classes = useStyles();
@@ -125,59 +116,59 @@ const Dashboard = () => {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  function signOut() {
-    localStorage.removeItem('user');
-    window.location = "/"
-  };
   const [elementState, setElementState] = useState({
-    element: '',
-    elements: []
-  })
+    element: "",
+    elements: [],
+  });
 
-  elementState.handleInputChange = event => {
-    setElementState({ ...elementState, [event.target.name]: event.target.value })
-  }
+  elementState.handleInputChange = (event) => {
+    setElementState({
+      ...elementState,
+      [event.target.name]: event.target.value,
+    });
+  };
 
-  elementState.handleAddElement = event => {
-    event.preventDefault()
-    let elements = JSON.parse(JSON.stringify(elementState.elements))
-    createItem({
+  elementState.handleAddElement = (event) => {
+    event.preventDefault();
+    let elements = JSON.parse(JSON.stringify(elementState.elements));
+    createElement({
       text: elementState.element,
-
     })
       .then(({ data }) => {
-        elements.push(data)
-        setItemState({ ...elementState, elements, element: '' })
+        elements.push(data);
+        setElementState({ ...elementState, elements, element: "" });
       })
-      .catch(err => console.error(err))
-  }
+      .catch((err) => console.error(err));
+  };
 
   elementState.handleUpdateElement = (id) => {
-    updateItem(id)
+    updateElement(id)
       .then(() => {
-        const elements = JSON.parse(JSON.stringify(elementState.elements))
-        setElementState({ ...elementState, elements })
+        const elements = JSON.parse(JSON.stringify(elementState.elements));
+        setElementState({ ...elementState, elements });
       })
-      .catch(err => console.error(err))
-  }
+      .catch((err) => console.error(err));
+  };
 
-  elementState.handleDeleteElement = id => {
+  elementState.handleDeleteElement = (id) => {
     deleteElement(id)
       .then(() => {
-        const elements = JSON.parse(JSON.stringify(elementState.elements))
-        const elementsFiltered = elements.filter(element => element._id !== id)
-        setElementState({ ...elementState, elements: elementsFiltered })
+        const elements = JSON.parse(JSON.stringify(elementState.elements));
+        const elementsFiltered = elements.filter(
+          (element) => element._id !== id
+        );
+        setElementState({ ...elementState, elements: elementsFiltered });
       })
-      .catch(err => console.error(err))
-  }
+      .catch((err) => console.error(err));
+  };
 
   useEffect(() => {
     getElements()
       .then(({ data }) => {
-        setElementState({ ...elementState, elements: data })
+        setElementState({ ...elementState, elements: data });
       })
-      .catch(err => console.error(err))
-  }, [])
+      .catch((err) => console.error(err));
+  }, []);
   return (
     <ElementContext.Provider value={elementState}>
       <div className={classes.root}>
@@ -207,19 +198,21 @@ const Dashboard = () => {
               className={classes.title}
             >
               Dashboard
-          </Typography>
-            <Button color="inherit" onClick={() => signOut()}>Sign Out</Button>
+            </Typography>
+            {/* <Button color="inherit" onClick={() => signOut()}>
+              Sign Out
+            </Button> */}
           </Toolbar>
         </AppBar>
 
-
-
-        {open ?
-
+        {open ? (
           <Drawer
             variant="permanent"
             classes={{
-              paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+              paper: clsx(
+                classes.drawerPaper,
+                !open && classes.drawerPaperClose
+              ),
             }}
             open={open}
           >
@@ -228,14 +221,8 @@ const Dashboard = () => {
                 <ChevronLeftIcon />
               </IconButton>
             </div>
-            <List id="">
-              {['Paragraph', 'Title', 'Button', 'Card', 'Form', 'Image', 'Footer'].map((text, index) => (
-                <ListItem button key={text}>
-                  <ListItemText primary={text} />
-                </ListItem>
-              ))}
-            </List>
-          </Drawer> : null}
+          </Drawer>
+        ) : null}
 
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
@@ -266,7 +253,7 @@ const Dashboard = () => {
                     className={classes.title}
                   >
                     Header Edit Section
-                </Typography>
+                  </Typography>
                 </Paper>
               </Grid>
               {/* Body Edit Section */}
@@ -295,7 +282,7 @@ const Dashboard = () => {
                     className={classes.title}
                   >
                     Footer Edit Section
-                </Typography>
+                  </Typography>
                 </Paper>
               </Grid>
             </Grid>
@@ -304,7 +291,7 @@ const Dashboard = () => {
         </main>
       </div>
     </ElementContext.Provider>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

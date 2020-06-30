@@ -1,40 +1,26 @@
-import React, { useState } from "react"
-import { makeStyles } from '@material-ui/core/styles'
-import Button from "@material-ui/core/Button"
-import TextField from "@material-ui/core/TextField"
-import Dialog from "@material-ui/core/Dialog"
-import DialogActions from "@material-ui/core/DialogActions"
-import DialogContent from "@material-ui/core/DialogContent"
-import DialogContentText from "@material-ui/core/DialogContentText"
-import DialogTitle from "@material-ui/core/DialogTitle"
-import ElementContext from '../../utils/ElementContext'
+import React, { useState, useContext } from "react";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import ElementContext from "../../utils/ElementContext";
 
 const ModalInput = () => {
-
-
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true)
+    setOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false)
-  }
-
-  const CloseModal = () => {
-    style.display = "none"
-  }
-
-  const {
-    element,
-    handleInputChange,
-    handleAddElement
-  } = useContext(ElementContext)
-
-
-
-
+    setOpen(false);
+  };
+  const { element, handleInputChange, handleAddElement } = useContext(
+    ElementContext
+  );
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -45,38 +31,32 @@ const ModalInput = () => {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Customize Component</DialogTitle>
+        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Customize Component here
+            To subscribe to this website, please enter your email address here.
+            We will send updates occasionally.
           </DialogContentText>
           <TextField
-            className={classes.input}
             autoFocus
             margin="dense"
-            id="element"
-            label="Element"
-            type="text"
-            name="element"
+            id="name"
+            label="Email Address"
+            type="email"
             fullWidth
-            value={element}
-            onChange={handleInputChange}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Close
+            Cancel
           </Button>
-          <Button
-            className={CloseModal}
-            onClick={handleAddElement}
-            color="primary">
-            Add Item
+          <Button onClick={handleClose} color="primary">
+            Subscribe
           </Button>
         </DialogActions>
       </Dialog>
     </div>
-  )
-}
+  );
+};
 
-export default ModalInput
+export default ModalInput;

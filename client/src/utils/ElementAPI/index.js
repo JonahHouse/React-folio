@@ -1,1 +1,1 @@
-export { default } './ElementAPI.js'
+export { default } from "./ElementAPI.js";
