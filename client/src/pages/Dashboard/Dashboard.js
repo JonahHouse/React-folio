@@ -23,6 +23,7 @@ import UserTextBox from "../../components/UserTextBox";
 import ElementContext from "../../utils/ElementContext";
 import Button from "@material-ui/core/Button";
 import TextBoxModal from "../../components/TextBoxModal";
+import NavbarModal from "../../components/Modals/NavbarModal"
 
 const drawerWidth = 240;
 
@@ -119,6 +120,7 @@ const Dashboard = () => {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const [elementState, setElementState] = useState({
     element: "",
+    attributes: {},
     elements: [],
   });
 
@@ -138,9 +140,8 @@ const Dashboard = () => {
     event.preventDefault();
     setOpen(true);
     let elements = JSON.parse(JSON.stringify(elementState.elements));
-    createElement({
-      text: elementState.element,
-    })
+    createElement(elementState.element.attributes
+    )
       .then(({ data }) => {
         elements.push(data);
         setElementState({ ...elementState, elements, element: "" });
@@ -231,6 +232,7 @@ const Dashboard = () => {
             </div>
 
             <TextBoxModal></TextBoxModal>
+            <NavbarModal></NavbarModal>
           </Drawer>
         ) : null}
 
