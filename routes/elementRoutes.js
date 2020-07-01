@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { Element, User } = require("../models");
 const passport = require("passport");
+const jwt = require('jsonwebtoken');
 
 router.get("/elements", passport.authenticate("jwt"), (req, res) => {
   Element.find()
@@ -12,14 +13,15 @@ router.get("/elements", passport.authenticate("jwt"), (req, res) => {
 
 router.post("/elements", passport.authenticate("jwt"), (req, res) => {
   Element.create({
-    text: req.body.body,
+    text: req.body.text,
     user: req.user._id,
   })
     .then((element) => {
+      console.log(req.body)
       User.findByIdAndUpdate(req.user._id, { $push: { elements: element._id } })
         .then(() =>
           res.json({
-            text: post.body,
+            text: req.body.text,
             user: req.user,
           })
         )

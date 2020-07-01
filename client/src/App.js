@@ -2,7 +2,8 @@ import React from 'react'
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -17,16 +18,16 @@ const App = () => {
         <Navbar />
         <Switch>
           <Route exact path="/">
-            <h1>Home</h1>
+            {(localStorage.getItem('user')) ? <h1>Home</h1> : <Redirect to="/login"></Redirect>}
           </Route>
           <Route exact path="/login">
-            <Login />
+            {(localStorage.getItem('user')) ? <Redirect to="/dashboard"></Redirect> : <Login />}
           </Route>
           <Route path="/register">
-            <Register />
+            {(localStorage.getItem('user')) ? <Redirect to="/dashboard"></Redirect> : <Register />}
           </Route>
           <Route exact path="/Dashboard">
-            <Dashboard />
+            {(localStorage.getItem('user')) ? <Dashboard /> : <Redirect to="/login"></Redirect>}
           </Route>
         </Switch>
       </div>

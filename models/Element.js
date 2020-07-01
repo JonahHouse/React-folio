@@ -8,4 +8,4 @@ const Element = new Schema({
   },
 });
 
-model.exports = model("Element", Element);
+module.exports = model("Element", Element);

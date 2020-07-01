@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -9,8 +9,20 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import ElementContext from "../../utils/ElementContext";
 import ElementAPI from "../../utils/ElementAPI";
 import Paper from '@material-ui/core/Paper'
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles(theme => ({
+  form: {
+
+  },
+  input: {
+
+  }
+}))
 
 const FormModal = () => {
+  const classes = useStyles()
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -53,9 +65,9 @@ const FormModal = () => {
       elements.push(data);
       setElementState({ ...elementState, elements, element: "" });
       console.log('ping')
-      
+
     })
-    .catch((err) => console.error(err));
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -72,21 +84,24 @@ const FormModal = () => {
         <DialogContent>
           <DialogContentText>Text Message </DialogContentText>
 
-          
-            <form
-              onSubmit={handleAddElement}
-            >
-              <TextField
-                autoFocus
-                margin="dense"
-                id="element"
-                label="element"
-                type="text"
-                fullWidth
-                onChange={handleInputChange}
-              />
-            </form>
-         
+
+          <form
+            onSubmit={handleAddElement}
+          >
+            <TextField
+              className={classes.input}
+              autoFocus
+              margin="dense"
+              id="element"
+              label="element"
+              type="text"
+              value={element.text}
+              fullWidth
+              name="element"
+              onChange={handleInputChange}
+            />
+          </form>
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="secondary">
