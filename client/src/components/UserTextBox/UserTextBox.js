@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-const Portfolio = () => {
+const UserTextBox = () => {
   const classes = useStyles()
 
   const {
@@ -29,7 +29,7 @@ const Portfolio = () => {
       <Paper className={classes.form}>
         {
           elements.map((element, key) => (
-            < TextareaAutosize
+            <TextareaAutosize
               className={classes.input}
               rowsMax={4}
               aria-label="maximum height"
@@ -48,4 +48,4 @@ const Portfolio = () => {
   )
 }
 
-export default Portfolio
+export default UserTextBox

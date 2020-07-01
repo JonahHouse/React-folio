@@ -19,11 +19,10 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import ElementAPI from "../../utils/ElementAPI";
-import Portfolio from "../../components/Portfolio";
-import ModalInput from "../../components/ModalInput";
+import UserTextBox from "../../components/UserTextBox";
 import ElementContext from "../../utils/ElementContext";
 import Button from "@material-ui/core/Button";
-import FormModal from "../../components/FormModal";
+import TextBoxModal from "../../components/TextBoxModal";
 
 const drawerWidth = 240;
 
@@ -123,6 +122,11 @@ const Dashboard = () => {
     elements: [],
   });
 
+  const signOut = () => {
+    localStorage.removeItem('user');
+    window.location = "/"
+  }
+
   elementState.handleInputChange = (event) => {
     setElementState({
       ...elementState,
@@ -130,18 +134,18 @@ const Dashboard = () => {
     });
   };
 
- elementState.handleAddElement = (event) => {
+  elementState.handleAddElement = (event) => {
     event.preventDefault();
     setOpen(true);
     let elements = JSON.parse(JSON.stringify(elementState.elements));
     createElement({
       text: elementState.element,
     })
-    .then(({ data }) => {
-      elements.push(data);
-      setElementState({ ...elementState, elements, element: "" });
-    })
-    .catch((err) => console.error(err));
+      .then(({ data }) => {
+        elements.push(data);
+        setElementState({ ...elementState, elements, element: "" });
+      })
+      .catch((err) => console.error(err));
   };
 
   elementState.handleUpdateElement = (id) => {
@@ -203,9 +207,9 @@ const Dashboard = () => {
             >
               Dashboard
             </Typography>
-            {/* <Button color="inherit" onClick={() => signOut()}>
+            <Button color="inherit" onClick={() => signOut()}>
               Sign Out
-            </Button> */}
+            </Button>
           </Toolbar>
         </AppBar>
 
@@ -225,6 +229,8 @@ const Dashboard = () => {
                 <ChevronLeftIcon />
               </IconButton>
             </div>
+
+            <TextBoxModal></TextBoxModal>
           </Drawer>
         ) : null}
 
@@ -242,8 +248,7 @@ const Dashboard = () => {
                     noWrap
                     className={classes.title}
                   >
-                    <ModalInput></ModalInput>
-                    <FormModal></FormModal>
+                    Navbar Edit Section
                   </Typography>
                 </Paper>
               </Grid>
@@ -271,7 +276,7 @@ const Dashboard = () => {
                     noWrap
                     className={classes.title}
                   >
-                    <Portfolio></Portfolio>
+                    <UserTextBox></UserTextBox>
                   </Typography>
                 </Paper>
               </Grid>

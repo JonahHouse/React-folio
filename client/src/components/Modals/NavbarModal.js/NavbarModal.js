@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from "react";
+import React from 'react'
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const FormModal = () => {
+const NavbarModal = () => {
   const classes = useStyles()
 
   const [open, setOpen] = React.useState(false);
@@ -36,6 +36,7 @@ const FormModal = () => {
   const { element, handleInputChange, handleAddElement } = useContext(
     ElementContext
   );
+
   const {
     getElements,
     createElement,
@@ -44,8 +45,8 @@ const FormModal = () => {
   } = ElementAPI;
 
   const [elementState, setElementState] = useState({
-    element: "",
-    elements: [],
+    type: "",
+    attributes: {},
   });
 
   elementState.handleInputChange = (event) => {
@@ -60,12 +61,10 @@ const FormModal = () => {
     setOpen(false);
     let elements = JSON.parse(JSON.stringify(elementState.elements));
     createElement({
-      text: elementState.element,
+      siteTitle: elementState.attribute.siteTitle,
     }).then(({ data }) => {
       elements.push(data);
       setElementState({ ...elementState, elements, element: "" });
-      console.log('ping')
-
     })
       .catch((err) => console.error(err));
   };
@@ -73,18 +72,16 @@ const FormModal = () => {
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Form Modal
+        Navbar Modal
       </Button>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Enter Your Text Here</DialogTitle>
+        <DialogTitle id="form-dialog-title">Enter Site Labels Here</DialogTitle>
         <DialogContent>
-          <DialogContentText>Text Message </DialogContentText>
-
-
+          <DialogContentText>Site Name</DialogContentText>
           <form
             onSubmit={handleAddElement}
           >
@@ -93,13 +90,29 @@ const FormModal = () => {
               autoFocus
               margin="dense"
               id="element"
-              label="element"
+              label="sitetitle"
               type="text"
               value={element.text}
               fullWidth
-              name="element"
+              name="attributes.siteTitle"
               onChange={handleInputChange}
             />
+            <DialogContentText>Site Page 1 Name</DialogContentText>
+            <TextField
+              className={classes.input}
+              autoFocus
+              margin="dense"
+              id="element"
+              label="sitepage1"
+              type="text"
+              value={element.text}
+              fullWidth
+              name="attribute.siteTitle"
+              onChange={handleInputChange}
+            />
+
+
+
           </form>
 
         </DialogContent>
@@ -119,4 +132,4 @@ const FormModal = () => {
   );
 };
 
-export default FormModal;
+export default NavbarModal
