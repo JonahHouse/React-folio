@@ -24,6 +24,7 @@ import ElementContext from "../../utils/ElementContext";
 import Button from "@material-ui/core/Button";
 import TextBoxModal from "../../components/TextBoxModal";
 import NavbarModal from "../../components/Modals/NavbarModal"
+import UserNav from '../../components/UserNav'
 
 const drawerWidth = 240;
 
@@ -119,7 +120,7 @@ const Dashboard = () => {
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const [elementState, setElementState] = useState({
-    element: "",
+    type: "type",
     attributes: {},
     elements: [],
   });
@@ -130,33 +131,38 @@ const Dashboard = () => {
   }
 
   elementState.handleInputChange = (event) => {
+    let newAttribute = { [event.target.name]: event.target.value }
+    let attributes = { ...elementState.attributes, ...newAttribute };
     setElementState({
-      ...elementState,
-      [event.target.name]: event.target.value,
+      type: event.target.name,
+      attributes: attributes
     });
-  };
+  }
 
-  elementState.handleAddElement = (event) => {
-    event.preventDefault();
+  elementState.handleAddElement = (event, type) => {
     setOpen(true);
+
     let elements = JSON.parse(JSON.stringify(elementState.elements));
-    createElement(elementState.element.attributes
-    )
+    createElement({
+      type: type,
+      attributes: elementState.attributes
+    })
       .then(({ data }) => {
+        console.log(data)
         elements.push(data);
-        setElementState({ ...elementState, elements, element: "" });
+        setElementState({ ...elementState, type: "", attributes: {} });
       })
       .catch((err) => console.error(err));
   };
 
-  elementState.handleUpdateElement = (id) => {
-    updateElement(id)
-      .then(() => {
-        const elements = JSON.parse(JSON.stringify(elementState.elements));
-        setElementState({ ...elementState, elements });
-      })
-      .catch((err) => console.error(err));
-  };
+  // elementState.handleUpdateElement = (id) => {
+  //   updateElement(id)
+  //     .then(() => {
+  //       const elements = JSON.parse(JSON.stringify(elementState.elements));
+  //       setElementState({ ...elementState, elements });
+  //     })
+  //     .catch((err) => console.error(err));
+  // };
 
   elementState.handleDeleteElement = (id) => {
     deleteElement(id)
@@ -173,10 +179,10 @@ const Dashboard = () => {
   useEffect(() => {
     getElements()
       .then(({ data }) => {
-        setElementState({ ...elementState, elements: data });
+        setElementState({ ...elementState, attributes: data });
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [elementState]);
 
   return (
     <ElementContext.Provider value={elementState}>
@@ -231,7 +237,7 @@ const Dashboard = () => {
               </IconButton>
             </div>
 
-            <TextBoxModal></TextBoxModal>
+            {/* <TextBoxModal></TextBoxModal> */}
             <NavbarModal></NavbarModal>
           </Drawer>
         ) : null}
@@ -251,6 +257,7 @@ const Dashboard = () => {
                     className={classes.title}
                   >
                     Navbar Edit Section
+                    <UserNav></UserNav>
                   </Typography>
                 </Paper>
               </Grid>
@@ -278,7 +285,7 @@ const Dashboard = () => {
                     noWrap
                     className={classes.title}
                   >
-                    <UserTextBox></UserTextBox>
+                    {/* <UserTextBox></UserTextBox> */}
                   </Typography>
                 </Paper>
               </Grid>

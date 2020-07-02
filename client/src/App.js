@@ -9,6 +9,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Navbar from './components/Navbar'
 import Dashboard from './pages/Dashboard'
+// import Home from './pages/Home'
 
 const App = () => {
 
@@ -31,7 +32,7 @@ const App = () => {
           </Route>
         </Switch>
       </div>
-    </Router>
+    </Router >
   );
 }
 

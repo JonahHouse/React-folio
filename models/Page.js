@@ -2,9 +2,9 @@ const { model, Schema } = require('mongoose')
 
 const Page = new Schema({
   title: String,
-  components: [{
+  elements: [{
     type: Schema.Types.ObjectId,
-    ref: 'Component'
+    ref: 'Element'
   }],
   images: Array,
   user: {

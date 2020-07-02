@@ -33,7 +33,7 @@ const NavbarModal = () => {
     setOpen(false);
   };
 
-  const { element, handleInputChange, handleAddElement } = useContext(
+  const { handleInputChange, handleAddElement } = useContext(
     ElementContext
   );
 
@@ -51,7 +51,7 @@ const NavbarModal = () => {
 
   elementState.handleInputChange = (event) => {
     setElementState({
-      ...elementState,
+      ...elementState.attributes,
       [event.target.name]: event.target.value,
     });
   };
@@ -91,28 +91,27 @@ const NavbarModal = () => {
               autoFocus
               margin="dense"
               id="element"
-              label="sitetitle"
+              label="Site Title"
               type="text"
               fullWidth
-              name="attributes.siteTitle"
-              onChange={handleInputChange}
+              name={elementState.attributes.siteTitle}
+              value={elementState.attributes.siteTitle}
+              onChange={(event) => handleInputChange(event, "navbar")}
             />
-            <DialogContentText>Site Page 1 Name</DialogContentText>
+            <DialogContentText>Site Link 1</DialogContentText>
             <TextField
               className={classes.input}
               autoFocus
               margin="dense"
               id="element"
-              label="sitepage1"
+              label="Site Link 1"
               type="text"
-              value={element.text}
               fullWidth
-              name="attribute.siteTitle"
-              onChange={handleInputChange}
+              name={elementState.attributes.siteLink1}
+              value={elementState.attributes.siteLink1}
+
+              onChange={(event) => handleInputChange(event, "navbar")}
             />
-
-
-
           </form>
 
         </DialogContent>
@@ -121,7 +120,7 @@ const NavbarModal = () => {
             Cancel
           </Button>
           <Button
-            onClick={handleAddElement}
+            onClick={(event) => handleAddElement(event, "navbar")}
             color="primary"
           >
             Update

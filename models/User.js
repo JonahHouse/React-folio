@@ -5,9 +5,9 @@ const User = new Schema({
   password: String,
   name: String,
   email: String,
-  components: [{
+  elements: [{
     type: Schema.Types.ObjectId,
-    ref: 'Component'
+    ref: 'Element'
   }],
   pages: [{
     type: Schema.Types.ObjectId,

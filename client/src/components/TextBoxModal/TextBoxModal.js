@@ -96,7 +96,7 @@ const TextBoxModal = () => {
               value={element.text}
               fullWidth
               name="element"
-              onChange={handleInputChange}
+              onChange={(event) => handleInputChange(event, "textbox")}
             />
           </form>
 
@@ -106,7 +106,7 @@ const TextBoxModal = () => {
             Cancel
           </Button>
           <Button
-            onClick={handleAddElement}
+            onClick={(event) => handleAddElement(event, "textbox")}
             color="primary"
           >
             Update

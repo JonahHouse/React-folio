@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import ElementContext from '../../utils/ElementContext'
+import ElementAPI from '../../utils/ElementAPI'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +22,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UserNav = () => {
+  const { element, elements, attributes, handleInputChange, handleAddElement } = useContext(
+    ElementContext
+  );
+
+
+  const {
+    getElements,
+    createElement,
+    updateElement,
+    deleteElement,
+  } = ElementAPI;
+
+  const [elementState, setElementState] = useState({
+    type: "",
+    attributes: {},
+  });
+
+
+
   const classes = useStyles();
 
   return (
@@ -30,10 +51,10 @@ const UserNav = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            {element.siteTitle}
+            {elementState.attributes.siteTitle}
           </Typography>
-          <Button color="inherit">{element.sitePageOne}</Button>
-          <Button color="inherit">{element.sitePageTwo}</Button>
+          <Button color="inherit">{elementState.attributes.siteLink1}</Button>
+          <Button color="inherit">{elementState.attributes.siteLink2}</Button>
 
         </Toolbar>
       </AppBar>

@@ -13,11 +13,11 @@ router.get("/elements", passport.authenticate("jwt"), (req, res) => {
 
 router.post("/elements", passport.authenticate("jwt"), (req, res) => {
   Element.create({
-    text: req.body.text,
-    user: req.user._id,
+    type: req.body.type,
+    attributes: req.body.attributes,
+    user: req.user._id
   })
     .then((element) => {
-      console.log(req.body)
       User.findByIdAndUpdate(req.user._id, { $push: { elements: element._id } })
         .then(() =>
           res.json({
