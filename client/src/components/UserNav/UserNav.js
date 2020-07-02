@@ -21,24 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserNav = () => {
-  const { element, elements, attributes, handleInputChange, handleAddElement } = useContext(
-    ElementContext
-  );
-
-
-  const {
-    getElements,
-    createElement,
-    updateElement,
-    deleteElement,
-  } = ElementAPI;
-
-  const [elementState, setElementState] = useState({
-    type: "",
-    attributes: {},
-  });
-
+const UserNav = (props) => {
 
 
   const classes = useStyles();
@@ -50,15 +33,27 @@ const UserNav = () => {
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            {elementState.attributes.siteTitle}
+          <Typography
+            variant="h6"
+            className={classes.title}
+            value={props.siteTitle}
+            name="siteTitle">
+            {props.siteTitle}
           </Typography>
-          <Button color="inherit">{elementState.attributes.siteLink1}</Button>
-          <Button color="inherit">{elementState.attributes.siteLink2}</Button>
+          <Button
+            color="inherit"
+            value={props.siteLink1}
+            name="siteLink1">
+            {props.siteLink1}</Button>
+          <Button
+            color="inherit"
+            value={props.siteLink2}
+            name="siteLink2">
+            {props.siteLink2}</Button>
 
         </Toolbar>
       </AppBar>
-    </div>
+    </div >
   )
 }
 

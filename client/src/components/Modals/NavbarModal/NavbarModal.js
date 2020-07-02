@@ -33,7 +33,7 @@ const NavbarModal = () => {
     setOpen(false);
   };
 
-  const { handleInputChange, handleAddElement } = useContext(
+  const { attributes, handleInputChange, handleAddElement } = useContext(
     ElementContext
   );
 
@@ -44,31 +44,7 @@ const NavbarModal = () => {
     deleteElement,
   } = ElementAPI;
 
-  const [elementState, setElementState] = useState({
-    type: "",
-    attributes: {},
-  });
 
-  elementState.handleInputChange = (event) => {
-    setElementState({
-      ...elementState.attributes,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  elementState.handleAddElement = (event) => {
-    event.preventDefault();
-    setOpen(false);
-    let elements = JSON.parse(JSON.stringify(elementState.elements));
-    createElement({
-      type: elementState.type,
-      siteTitle: elementState.attribute.siteTitle,
-    }).then(({ data }) => {
-      elements.push(data);
-      setElementState({ ...elementState, elements, element: "" });
-    })
-      .catch((err) => console.error(err));
-  };
 
   return (
     <div>
@@ -94,8 +70,8 @@ const NavbarModal = () => {
               label="Site Title"
               type="text"
               fullWidth
-              name={elementState.attributes.siteTitle}
-              value={elementState.attributes.siteTitle}
+              name="siteTitle"
+              value={attributes.siteTitle}
               onChange={(event) => handleInputChange(event, "navbar")}
             />
             <DialogContentText>Site Link 1</DialogContentText>
@@ -107,9 +83,8 @@ const NavbarModal = () => {
               label="Site Link 1"
               type="text"
               fullWidth
-              name={elementState.attributes.siteLink1}
-              value={elementState.attributes.siteLink1}
-
+              name="siteLink1"
+              value={attributes.siteLink1}
               onChange={(event) => handleInputChange(event, "navbar")}
             />
           </form>

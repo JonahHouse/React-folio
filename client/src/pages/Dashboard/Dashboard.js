@@ -120,9 +120,10 @@ const Dashboard = () => {
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const [elementState, setElementState] = useState({
-    type: "type",
-    attributes: {},
     elements: [],
+    type: '',
+    attributes: {}
+
   });
 
   const signOut = () => {
@@ -133,8 +134,8 @@ const Dashboard = () => {
   elementState.handleInputChange = (event) => {
     let newAttribute = { [event.target.name]: event.target.value }
     let attributes = { ...elementState.attributes, ...newAttribute };
+    console.log(attributes)
     setElementState({
-      type: event.target.name,
       attributes: attributes
     });
   }
@@ -142,14 +143,14 @@ const Dashboard = () => {
   elementState.handleAddElement = (event, type) => {
     setOpen(true);
 
-    let elements = JSON.parse(JSON.stringify(elementState.elements));
+    // let elements = JSON.parse(JSON.stringify(elementState.elements));
     createElement({
       type: type,
       attributes: elementState.attributes
     })
       .then(({ data }) => {
         console.log(data)
-        elements.push(data);
+        // elements.push(data);
         setElementState({ ...elementState, type: "", attributes: {} });
       })
       .catch((err) => console.error(err));
@@ -179,10 +180,17 @@ const Dashboard = () => {
   useEffect(() => {
     getElements()
       .then(({ data }) => {
-        setElementState({ ...elementState, attributes: data });
+        setElementState({ ...elementState, elements: data });
       })
       .catch((err) => console.error(err));
-  }, [elementState]);
+  }, []);
+
+
+  let elementArray = elementState.elements
+
+  const navbar = elementArray.filter(element => element.type == "navbar")
+  console.log(navbar);
+
 
   return (
     <ElementContext.Provider value={elementState}>
@@ -257,7 +265,14 @@ const Dashboard = () => {
                     className={classes.title}
                   >
                     Navbar Edit Section
-                    <UserNav></UserNav>
+                    {
+                      navbar.map(navbar => {
+                        return <UserNav
+                          siteTitle={navbar.attributes.siteTitle}
+                          siteLink1={navbar.attributes.siteLink1}
+                          siteLink2={navbar.attributes.siteLink2}></UserNav>
+                      })
+                    }
                   </Typography>
                 </Paper>
               </Grid>
@@ -309,7 +324,7 @@ const Dashboard = () => {
           </Container>
         </main>
       </div>
-    </ElementContext.Provider>
+    </ElementContext.Provider  >
   );
 };
 
