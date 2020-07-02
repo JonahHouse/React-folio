@@ -9,7 +9,8 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Navbar from './components/Navbar'
 import Dashboard from './pages/Dashboard'
-// import Home from './pages/Home'
+import Home from './pages/Home'
+import Footer from './components/Footer'
 
 const App = () => {
 
@@ -19,7 +20,7 @@ const App = () => {
         <Navbar />
         <Switch>
           <Route exact path="/">
-            {(localStorage.getItem('user')) ? <h1>Home</h1> : <Redirect to="/login"></Redirect>}
+            {(localStorage.getItem('user')) ? <Home></Home> : <Redirect to="/login"></Redirect>}
           </Route>
           <Route exact path="/login">
             {(localStorage.getItem('user')) ? <Redirect to="/dashboard"></Redirect> : <Login />}

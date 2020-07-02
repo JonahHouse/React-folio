@@ -186,11 +186,7 @@ const Dashboard = () => {
   }, []);
 
 
-  let elementArray = elementState.elements
-
-  const navbar = elementArray.filter(element => element.type == "navbar")
-  console.log(navbar);
-
+  let elementArray = (elementState.elements) ? elementState.elements : null
 
   return (
     <ElementContext.Provider value={elementState}>
@@ -266,12 +262,13 @@ const Dashboard = () => {
                   >
                     Navbar Edit Section
                     {
-                      navbar.map(navbar => {
+                      (elementArray) ? elementArray.filter(element => element.type == "navbar").map((navbar, i) => {
                         return <UserNav
                           siteTitle={navbar.attributes.siteTitle}
                           siteLink1={navbar.attributes.siteLink1}
-                          siteLink2={navbar.attributes.siteLink2}></UserNav>
-                      })
+                          siteLink2={navbar.attributes.siteLink2}
+                          key={i}></UserNav>
+                      }) : null
                     }
                   </Typography>
                 </Paper>
