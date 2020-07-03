@@ -1,0 +1,48 @@
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+
+  heroContent: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(8, 0, 6),
+  },
+  heroButtons: {
+    marginTop: theme.spacing(4),
+  }
+
+}));
+
+const UserHero = (props) => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.heroContent}>
+      <Container maxWidth="sm">
+        <Typography
+          component="h1" variant="h2" align="center" color="textPrimary" name="heroTitle" value={props.heroTitle} gutterBottom >
+          Hero Title
+            </Typography>
+        <Typography variant="h5" align="center" name="heroParagraph" value={props.heroParagraph} color="textSecondary" paragraph>
+          Paragraph text description
+            </Typography>
+        <div className={classes.heroButtons}>
+          <Grid container spacing={2} justify="center">
+            <Grid item>
+              <Button variant="contained" color="primary" name="heroBtn1" value={props.heroBtn1}>
+                {props.heroBtn1}
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button variant="outlined" color="primary" name="heroBtn2" value={props.heroBtn2}>
+                {props.heroBtn2}
+              </Button>
+            </Grid>
+          </Grid>
+        </div>
+      </Container>
+    </div  >
+  )
+
+}
+export default UserHero

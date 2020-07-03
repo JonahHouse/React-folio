@@ -27,6 +27,10 @@ import NavbarModal from "../../components/Modals/NavbarModal"
 import UserNav from '../../components/UserNav'
 import ButtonModal from '../../components/Modals/ButtonModal'
 import UserBtn from '../../components/UserBtn'
+import HeroModal from '../../components/Modals/HeroModal'
+import UserHero from '../../components/UserHero'
+import FooterModal from '../../components/Modals/FooterModal'
+import UserFooter from '../../components/UserFooter'
 
 const drawerWidth = 240;
 
@@ -189,9 +193,14 @@ const Dashboard = () => {
   };
 
   let elementArray = (elementState.elements) ? elementState.elements : [];
-  let navbars = elementArray.filter(element => element.type === "navbar")
-  let buttons = elementArray.filter(element => element.type === "button")
+
+  let navbars = elementArray.filter(element => element.type === "navbar");
+
+  let hero = elementArray.filter(element => element.type === "hero");
+  console.log(hero)
   let navbar = navbars[navbars.length - 1];
+
+  let buttons = elementArray.filter(element => element.type === "button")
 
   return (
     <ElementContext.Provider value={elementState}>
@@ -247,9 +256,14 @@ const Dashboard = () => {
             </div>
 
             {/* <TextBoxModal></TextBoxModal> */}
+            <br />
             <NavbarModal></NavbarModal>
             <br />
+            <HeroModal></HeroModal>
+            <br />
             <ButtonModal></ButtonModal>
+            <br />
+
           </Drawer>
         ) : null}
 
@@ -292,7 +306,7 @@ const Dashboard = () => {
                     className={classes.title}
                   >
                     Body Edit Section
-                    {/* <UserTextBox></UserTextBox> */}
+                    <UserTextBox></UserTextBox>
                     {
                       buttons.map(button => {
                         console.log(button)

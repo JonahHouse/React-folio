@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const FooterModal = () => {
+const HeroModal = () => {
   const classes = useStyles()
 
   const [open, setOpen] = React.useState(false);
@@ -44,21 +44,19 @@ const FooterModal = () => {
     deleteElement,
   } = ElementAPI;
 
-
-
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Footer Modal
+        Hero Modal
       </Button>
       <Dialog
         open={open}
         onClose={handleModalClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Enter Site Labels Here</DialogTitle>
+        <DialogTitle id="form-dialog-title">Enter Hero Text Here</DialogTitle>
         <DialogContent>
-          <DialogContentText>Site Name</DialogContentText>
+          <DialogContentText>Hero Title</DialogContentText>
           <form
             onSubmit={handleAddElement}
           >
@@ -67,15 +65,53 @@ const FooterModal = () => {
               autoFocus
               margin="dense"
               id="element"
-              label="Site Title"
+              label="Hero Title"
               type="text"
               fullWidth
-              name="siteTitle"
-              value={attributes.siteTitle}
-              onChange={(event) => handleInputChange(event, "footer")}
+              name="heroTitle"
+              value={attributes.heroTitle}
+              onChange={(event) => handleInputChange(event, "hero")}
+            />
+
+            <TextField
+              className={classes.input}
+              autoFocus
+              margin="dense"
+              id="element"
+              label="Hero Paragraph"
+              type="text"
+              fullWidth
+              name="heroParagraph"
+              value={attributes.heroParagraph}
+              onChange={(event) => handleInputChange(event, "hero")}
+            />
+
+            <TextField
+              className={classes.input}
+              autoFocus
+              margin="dense"
+              id="element"
+              label="Hero Button 1"
+              type="text"
+              fullWidth
+              name="heroBtn1"
+              value={attributes.heroBtn1}
+              onChange={(event) => handleInputChange(event, "hero")}
+            />
+
+            <TextField
+              className={classes.input}
+              autoFocus
+              margin="dense"
+              id="element"
+              label="Hero Button 2"
+              type="text"
+              fullWidth
+              name="heroBtn2"
+              value={attributes.heroBtn2}
+              onChange={(event) => handleInputChange(event, "hero")}
             />
           </form>
-
         </DialogContent>
         <DialogActions>
           <Button onClick={handleModalClose} color="secondary">
@@ -83,7 +119,7 @@ const FooterModal = () => {
           </Button>
           <Button
             onClick={(event) => {
-              handleAddElement(event, "footer"); handleModalClose();
+              handleAddElement(event, "hero"); handleModalClose();
             }}
             color="primary"
           >
@@ -95,4 +131,4 @@ const FooterModal = () => {
   );
 };
 
-export default FooterModal
+export default HeroModal
