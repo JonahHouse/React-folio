@@ -92,7 +92,9 @@ const Login = () => {
         <Typography component='h1' variant='h5'>
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate
+        onSubmit=
+        {(event)=> loginState.handleLogin(event)}>
           <TextField
             variant='outlined'
             margin='normal'
@@ -122,6 +124,7 @@ const Login = () => {
             label='Remember me'
           />
           <Button
+            type='submit'
             fullWidth
             variant='contained'
             color='primary'
