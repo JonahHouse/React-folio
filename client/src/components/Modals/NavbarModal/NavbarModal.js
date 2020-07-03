@@ -29,7 +29,7 @@ const NavbarModal = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleModalClose = () => {
     setOpen(false);
   };
 
@@ -53,7 +53,7 @@ const NavbarModal = () => {
       </Button>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={handleModalClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Enter Site Labels Here</DialogTitle>
@@ -91,11 +91,13 @@ const NavbarModal = () => {
 
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="secondary">
+          <Button onClick={handleModalClose} color="secondary">
             Cancel
           </Button>
           <Button
-            onClick={(event) => handleAddElement(event, "navbar")}
+            onClick={(event) => {
+              handleAddElement(event, "navbar"); handleModalClose();
+            }}
             color="primary"
           >
             Update

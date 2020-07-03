@@ -119,12 +119,20 @@ const Dashboard = () => {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
   const [elementState, setElementState] = useState({
     elements: [],
     type: '',
     attributes: {}
-
   });
+
+  useEffect(() => {
+    getElements()
+      .then(({ data }) => {
+        setElementState({ ...elementState, elements: data });
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   const signOut = () => {
     localStorage.removeItem('user');
@@ -134,23 +142,19 @@ const Dashboard = () => {
   elementState.handleInputChange = (event) => {
     let newAttribute = { [event.target.name]: event.target.value }
     let attributes = { ...elementState.attributes, ...newAttribute };
-    console.log(attributes)
     setElementState({
       attributes: attributes
     });
+    console.log(elementState.attributes);
   }
 
   elementState.handleAddElement = (event, type) => {
     setOpen(true);
-
-    // let elements = JSON.parse(JSON.stringify(elementState.elements));
     createElement({
       type: type,
       attributes: elementState.attributes
     })
       .then(({ data }) => {
-        console.log(data)
-        // elements.push(data);
         setElementState({ ...elementState, type: "", attributes: {} });
       })
       .catch((err) => console.error(err));
@@ -177,16 +181,12 @@ const Dashboard = () => {
       .catch((err) => console.error(err));
   };
 
-  useEffect(() => {
-    getElements()
-      .then(({ data }) => {
-        setElementState({ ...elementState, elements: data });
-      })
-      .catch((err) => console.error(err));
-  }, []);
 
 
-  let elementArray = (elementState.elements) ? elementState.elements : null
+
+  let elementArray = (elementState.elements) ? elementState.elements : [];
+  let navbars = elementArray.filter(element => element.type === "navbar")
+  let navbar = navbars[navbars.length - 1];
 
   return (
     <ElementContext.Provider value={elementState}>
@@ -262,13 +262,14 @@ const Dashboard = () => {
                   >
                     Navbar Edit Section
                     {
-                      (elementArray) ? elementArray.filter(element => element.type == "navbar").map((navbar, i) => {
-                        return <UserNav
-                          siteTitle={navbar.attributes.siteTitle}
+                      (navbar) ?
+                        <UserNav
+                          siteTitle={navbar.attributes.siteTitle
+                          }
                           siteLink1={navbar.attributes.siteLink1}
                           siteLink2={navbar.attributes.siteLink2}
-                          key={i}></UserNav>
-                      }) : null
+                        ></UserNav>
+                        : null
                     }
                   </Typography>
                 </Paper>
@@ -321,7 +322,7 @@ const Dashboard = () => {
           </Container>
         </main>
       </div>
-    </ElementContext.Provider  >
+    </ElementContext.Provider >
   );
 };
 
