@@ -8,7 +8,6 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import ElementContext from "../../../utils/ElementContext";
 import ElementAPI from "../../../utils/ElementAPI";
-import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
@@ -49,7 +48,7 @@ const NavbarModal = () => {
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Navbar Modal
+        Navbar
       </Button>
       <Dialog
         open={open}

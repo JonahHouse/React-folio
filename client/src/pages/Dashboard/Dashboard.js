@@ -300,6 +300,27 @@ const Dashboard = () => {
                   </Typography>
                 </Paper>
               </Grid>
+              <Grid item xs={12}>
+                <Paper className={classes.bodyEditSection}>
+                  <Typography
+                    component="h1"
+                    variant="h6"
+                    color="inherit"
+                    noWrap
+                    className={classes.title}
+                  >
+                    Header Edit Section
+                    {
+                      (hero) ? <UserHero
+                        heroTitle={hero.attributes.heroTitle} heroParagraph={hero.attributes.heroParagraph}
+                        heroBtn1={hero.attributes.heroBtn1}
+                        heroBtn2={hero.attributes.heroBtn2}>
+                      </UserHero> : null
+                    }
+                  </Typography>
+                </Paper>
+              </Grid>
+
               {/* Body Edit Section */}
               <Grid item xs={12}>
                 <Paper className={classes.bodyEditSection}>
@@ -311,14 +332,8 @@ const Dashboard = () => {
                     className={classes.title}
                   >
                     Body Edit Section
-                    {/* <UserTextBox></UserTextBox> */}
-                    {
-                      (hero) ? <UserHero
-                        heroTitle={hero.attributes.heroTitle} heroParagraph={hero.attributes.heroParagraph}
-                        heroBtn1={hero.attributes.heroBtn1}
-                        heroBtn2={hero.attributes.heroBtn2}>
-                      </UserHero> : null
-                    }
+
+
                     {
                       buttons.map((button, index) => {
                         return <UserBtn key={index}
