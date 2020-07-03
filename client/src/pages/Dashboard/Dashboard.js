@@ -181,9 +181,6 @@ const Dashboard = () => {
       .catch((err) => console.error(err));
   };
 
-
-
-
   let elementArray = (elementState.elements) ? elementState.elements : [];
   let navbars = elementArray.filter(element => element.type === "navbar")
   let navbar = navbars[navbars.length - 1];
