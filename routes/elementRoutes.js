@@ -29,7 +29,7 @@ router.post("/elements", passport.authenticate("jwt"), (req, res) => {
 
 
 router.delete("/elements/:id", passport.authenticate("jwt"), (req, res) => {
-  Element.delete({ id: req.body.id }, (err) => console.error(err));
+  Element.deleteOne({ id: req.body.id }, (err) => console.error(err));
 });
 
 module.exports = router;

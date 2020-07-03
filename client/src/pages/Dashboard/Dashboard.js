@@ -25,6 +25,8 @@ import Button from "@material-ui/core/Button";
 import TextBoxModal from "../../components/TextBoxModal";
 import NavbarModal from "../../components/Modals/NavbarModal"
 import UserNav from '../../components/UserNav'
+import ButtonModal from '../../components/Modals/ButtonModal'
+import UserBtn from '../../components/UserBtn'
 
 const drawerWidth = 240;
 
@@ -105,6 +107,11 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 240,
   },
+  bodyEditSection: {
+    display: "flex",
+    padding: "16px"
+
+  }
 }));
 
 const { getElements, createElement, updateElement, deleteElement } = ElementAPI;
@@ -183,6 +190,7 @@ const Dashboard = () => {
 
   let elementArray = (elementState.elements) ? elementState.elements : [];
   let navbars = elementArray.filter(element => element.type === "navbar")
+  let buttons = elementArray.filter(element => element.type === "button")
   let navbar = navbars[navbars.length - 1];
 
   return (
@@ -240,6 +248,8 @@ const Dashboard = () => {
 
             {/* <TextBoxModal></TextBoxModal> */}
             <NavbarModal></NavbarModal>
+            <br />
+            <ButtonModal></ButtonModal>
           </Drawer>
         ) : null}
 
@@ -271,23 +281,9 @@ const Dashboard = () => {
                   </Typography>
                 </Paper>
               </Grid>
-              {/* Header Edit Section */}
-              <Grid item xs={12}>
-                <Paper className={fixedHeightPaper}>
-                  <Typography
-                    component="h1"
-                    variant="h6"
-                    color="inherit"
-                    noWrap
-                    className={classes.title}
-                  >
-                    Header Edit Section
-                  </Typography>
-                </Paper>
-              </Grid>
               {/* Body Edit Section */}
               <Grid item xs={12}>
-                <Paper className={fixedHeightPaper}>
+                <Paper className={classes.bodyEditSection}>
                   <Typography
                     component="h1"
                     variant="h6"
@@ -295,7 +291,17 @@ const Dashboard = () => {
                     noWrap
                     className={classes.title}
                   >
+                    Body Edit Section
                     {/* <UserTextBox></UserTextBox> */}
+                    {
+                      buttons.map(button => {
+                        console.log(button)
+                        return <UserBtn
+                          btnText={button.attributes.btnText}
+                          btnLink={button.attributes.btnLink}></UserBtn>
+                      }
+                      )
+                    }
                   </Typography>
                 </Paper>
               </Grid>

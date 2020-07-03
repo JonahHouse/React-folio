@@ -6,8 +6,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import ElementContext from "../../utils/ElementContext";
-import ElementAPI from "../../utils/ElementAPI";
+import ElementContext from "../../../utils/ElementContext";
+import ElementAPI from "../../../utils/ElementAPI";
 import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -29,11 +29,11 @@ const ButtonModal = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleModalClose = () => {
     setOpen(false);
   };
 
-  const { element, handleInputChange, handleAddElement } = useContext(
+  const { attributes, handleInputChange, handleAddElement } = useContext(
     ElementContext
   );
 
@@ -44,8 +44,6 @@ const ButtonModal = () => {
     deleteElement,
   } = ElementAPI;
 
-
-
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -53,12 +51,12 @@ const ButtonModal = () => {
       </Button>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={handleModalClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Enter Your Text Here</DialogTitle>
+        <DialogTitle id="form-dialog-title">Enter Your Button Text Here</DialogTitle>
         <DialogContent>
-          <DialogContentText>Text Message </DialogContentText>
+          <DialogContentText>Button Text Message </DialogContentText>
 
           <form
             onSubmit={handleAddElement}
@@ -70,28 +68,42 @@ const ButtonModal = () => {
               id="element"
               label="element"
               type="text"
-              value={element.text}
+              value={attributes.btnText}
               fullWidth
-              name="element"
+              name="btnText"
+              onChange={handleInputChange}
+            />
+            <TextField
+              className={classes.input}
+              autoFocus
+              margin="dense"
+              id="element"
+              label="element"
+              type="text"
+              value={attributes.btnLink}
+              fullWidth
+              name="btnLink"
               onChange={handleInputChange}
             />
           </form>
 
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="secondary">
+          <Button onClick={handleModalClose} color="secondary">
             Cancel
           </Button>
           <Button
-            onClick={handleAddElement}
+            onClick={(event) => {
+              handleAddElement(event, "button"); handleModalClose();
+            }}
             color="primary"
           >
             Update
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </div >
   );
 };
 
-export default TextBoxModal;
+export default ButtonModal;
