@@ -17,7 +17,6 @@ import Paper from "@material-ui/core/Paper";
 import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import ElementAPI from "../../utils/ElementAPI";
 import UserTextBox from "../../components/UserTextBox";
 import ElementContext from "../../utils/ElementContext";
@@ -31,6 +30,8 @@ import HeroModal from '../../components/Modals/HeroModal'
 import UserHero from '../../components/UserHero'
 import FooterModal from '../../components/Modals/FooterModal'
 import UserFooter from '../../components/UserFooter'
+import CardModal from '../../components/Modals/CardModal'
+import UserCard from '../../components/UserCard'
 
 const drawerWidth = 240;
 
@@ -193,14 +194,14 @@ const Dashboard = () => {
   };
 
   let elementArray = (elementState.elements) ? elementState.elements : [];
-
   let navbars = elementArray.filter(element => element.type === "navbar");
-
-  let hero = elementArray.filter(element => element.type === "hero");
-  console.log(hero)
+  let footers = elementArray.filter(element => element.type === "footer");
+  let footer = footers[footers.length - 1];
+  let heros = elementArray.filter(element => element.type === "hero");
+  let hero = heros[heros.length - 1]
   let navbar = navbars[navbars.length - 1];
-
   let buttons = elementArray.filter(element => element.type === "button")
+  let cards = elementArray.filter(element => element.type === "card")
 
   return (
     <ElementContext.Provider value={elementState}>
@@ -263,6 +264,10 @@ const Dashboard = () => {
             <br />
             <ButtonModal></ButtonModal>
             <br />
+            <FooterModal></FooterModal>
+            <br />
+            <CardModal></CardModal>
+
 
           </Drawer>
         ) : null}
@@ -306,15 +311,33 @@ const Dashboard = () => {
                     className={classes.title}
                   >
                     Body Edit Section
-                    <UserTextBox></UserTextBox>
+                    {/* <UserTextBox></UserTextBox> */}
                     {
-                      buttons.map(button => {
-                        console.log(button)
-                        return <UserBtn
+                      (hero) ? <UserHero
+                        heroTitle={hero.attributes.heroTitle} heroParagraph={hero.attributes.heroParagraph}
+                        heroBtn1={hero.attributes.heroBtn1}
+                        heroBtn2={hero.attributes.heroBtn2}>
+                      </UserHero> : null
+                    }
+                    {
+                      buttons.map((button, index) => {
+                        return <UserBtn key={index}
                           btnText={button.attributes.btnText}
                           btnLink={button.attributes.btnLink}></UserBtn>
                       }
                       )
+                    }
+                    {
+                      cards.map((card, index) => {
+                        return <UserCard
+                          cardTitle={card.attributes.cardTitle}
+                          cardBody={card.attributes.cardBody}
+                          cardImage={card.attributes.cardImage}
+                          cardButtonLink={card.attributes.cardButtonLink}
+                          cardButtonText={card.attributes.cardButtonText}
+                          key={index}>
+                        </UserCard>
+                      })
                     }
                   </Typography>
                 </Paper>
@@ -331,6 +354,14 @@ const Dashboard = () => {
                     className={classes.title}
                   >
                     Footer Edit Section
+                     {
+                      (footer) ?
+                        <UserFooter
+                          siteTitle={footer.attributes.siteTitle}
+                        ></UserFooter>
+                        : null
+                    }
+
                   </Typography>
                 </Paper>
               </Grid>
