@@ -22,7 +22,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UserNav = (props) => {
+  const { element, elements, attributes, handleInputChange, handleAddElement } = useContext(
+    ElementContext
+  );
 
+  const {
+    getElements,
+    createElement,
+    updateElement,
+    deleteElement,
+  } = ElementAPI;
+
+  const [elementState, setElementState] = useState({
+    type: "",
+    attributes: {}
+  })
 
   const classes = useStyles();
 
@@ -53,7 +67,7 @@ const UserNav = (props) => {
 
         </Toolbar>
       </AppBar>
-    </div >
+    </div>
   )
 }
 

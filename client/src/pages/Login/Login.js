@@ -46,6 +46,7 @@ const Login = () => {
   }
 
   loginState.handleLogin = event => {
+    console.log(event)
     event.preventDefault()
     axios.post('http://localhost:3001/api/users/login', {
       username: loginState.username,
@@ -92,7 +93,10 @@ const Login = () => {
         <Typography component='h1' variant='h5'>
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form
+          className={classes.form} noValidate
+          onSubmit={(event) => loginState.handleLogin(event)}
+        >
           <TextField
             variant='outlined'
             margin='normal'
@@ -122,11 +126,12 @@ const Login = () => {
             label='Remember me'
           />
           <Button
+            type='submit'
             fullWidth
             variant='contained'
             color='primary'
             className={classes.submit}
-            onClick={(event) => loginState.handleLogin(event)}
+            // onClick={(event) => loginState.handleLogin(event)}
           >
             Sign In
           </Button>

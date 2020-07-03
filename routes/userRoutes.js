@@ -14,10 +14,15 @@ router.post('/users/register', (req, res) => {
 
 // Login Route
 router.post('/users/login', (req, res) => {
-  User.authenticate()(req.body.username, req.body.password, (err, user) => {
-    if (err) { console.error(err) }
-    res.json(user ? jwt.sign({ id: user._id }, process.env.SECRET) : null)
-  })
+  console.log(req.body)
+  User.authenticate()(req.body.username, req.body.password)
+    .then((user) => {
+      res.json(user ? jwt.sign({ id: user._id }, process.env.SECRET) : null)
+    })
+    .catch(
+      (err) => {
+        if (err) { console.error(err) }
+      })
 })
 
 router.get('/users/username', passport.authenticate('jwt'), (req, res) => {

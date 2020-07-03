@@ -44,7 +44,7 @@ const Navbar = () => {
     <>
       <Link to="/login" className={classes.link} >
         <Button color="inherit">Login</Button>
-      </Link  >
+      </Link>
       <Link to="/register" className={classes.link}>
         <Button color="inherit">SignUp</Button>
       </Link>
@@ -74,7 +74,7 @@ const Navbar = () => {
         </Toolbar>
       </AppBar>
     </div>
-  );
+  )
 }
 
 export default Navbar

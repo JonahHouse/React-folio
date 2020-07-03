@@ -117,4 +117,4 @@ const TextBoxModal = () => {
   );
 };
 
-export default TextBoxModal;
+export default TextBoxModal

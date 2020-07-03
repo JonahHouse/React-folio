@@ -1,7 +1,6 @@
 require('dotenv').config()
 const express = require('express')
 const { join } = require('path')
-const bcrypt = require('bcrypt')
 const passport = require('passport')
 const cors = require('cors')
 const { Strategy } = require('passport-local')

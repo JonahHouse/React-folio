@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 
-
 const useStyles = makeStyles(theme => ({
   form: {
 
@@ -13,7 +12,6 @@ const useStyles = makeStyles(theme => ({
 
   }
 }))
-
 
 const UserTextBox = () => {
   const classes = useStyles()

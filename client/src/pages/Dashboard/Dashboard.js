@@ -185,7 +185,6 @@ const Dashboard = () => {
       .catch((err) => console.error(err));
   }, []);
 
-
   let elementArray = (elementState.elements) ? elementState.elements : null
 
   return (
@@ -321,8 +320,8 @@ const Dashboard = () => {
           </Container>
         </main>
       </div>
-    </ElementContext.Provider  >
+    </ElementContext.Provider>
   );
 };
 
-export default Dashboard;
+export default Dashboard
