@@ -33,7 +33,7 @@ const ButtonModal = () => {
     setOpen(false);
   };
 
-  const { element, handleInputChange, handleAddElement } = useContext(
+  const { attributes, handleInputChange, handleAddElement } = useContext(
     ElementContext
   );
 
@@ -70,9 +70,9 @@ const ButtonModal = () => {
               id="element"
               label="element"
               type="text"
-              value={element.text}
+              value={attributes.btnText}
               fullWidth
-              name="element"
+              name="btnText"
               onChange={handleInputChange}
             />
           </form>
@@ -94,4 +94,4 @@ const ButtonModal = () => {
   );
 };
 
-export default TextBoxModal;
+export default ButtonModal;

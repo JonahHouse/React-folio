@@ -10,12 +10,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ContainedButtons() {
+const UserBtn = => (props) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Button variant="contained">{element.button}</Button>
+      <Button
+       variant="contained"
+       value={props.btnText}
+       name="btnText">
+      {props.btnText}
+      </Button>
 
     </div>
   );
