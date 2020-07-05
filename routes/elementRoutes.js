@@ -27,9 +27,14 @@ router.post("/elements", passport.authenticate("jwt"), (req, res) => {
     .catch((err) => console.error(err));
 });
 
+router.put('/elements/:id', passport.authenticate("jwt"), (req, res) => {
+  Element.findByIdAndUpdate(req.params.id, { $set: req.body })
+    .then(() => res.sendStatus(200))
+    .catch(err => console.error(err))
+})
 
 router.delete("/elements/:id", passport.authenticate("jwt"), (req, res) => {
-  Element.deleteOne({ id: req.body.id }, (err) => console.error(err));
+  Element.findByIdAndDelete(req.params.id, (err) => console.error(err));
 });
 
 module.exports = router;

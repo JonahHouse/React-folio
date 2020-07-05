@@ -32,6 +32,9 @@ import FooterModal from '../../components/Modals/FooterModal'
 import UserFooter from '../../components/UserFooter'
 import CardModal from '../../components/Modals/CardModal'
 import UserCard from '../../components/UserCard'
+import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
+import ModifyElement from '../../components/ModifyElement'
 
 const drawerWidth = 240;
 
@@ -289,14 +292,21 @@ const Dashboard = () => {
                     Navbar Edit Section
                     {
                       (navbar) ?
-                        <UserNav
-                          siteTitle={navbar.attributes.siteTitle
-                          }
-                          siteLink1={navbar.attributes.siteLink1}
-                          siteLink2={navbar.attributes.siteLink2}
-                        ></UserNav>
+                        <>
+                          <UserNav
+                            siteTitle={navbar.attributes.siteTitle
+                            }
+                            siteLink1={navbar.attributes.siteLink1}
+                            siteLink2={navbar.attributes.siteLink2}
+                          ></UserNav>
+                          <ModifyElement
+                            elementId={navbar._id}
+                            handleDeleteElement={elementState.handleDeleteElement}></ModifyElement>
+                        </>
                         : null
                     }
+
+
                   </Typography>
                 </Paper>
               </Grid>

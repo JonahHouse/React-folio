@@ -20,7 +20,7 @@ router.post('/users/login', (req, res) => {
   })
 })
 
-router.get('/users/username', passport.authenticate('jwt'), (req, res) => {
+router.get('/users/:username', passport.authenticate('jwt'), (req, res) => {
   Page.find()
     .populate('user')
     .then(pages => res.json(pages))
