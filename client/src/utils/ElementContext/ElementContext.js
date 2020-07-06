@@ -10,4 +10,4 @@ const ElementContext = createContext({
   handleDeleteElement: () => { }
 })
 
-export default ElementContext;
+export default ElementContext
