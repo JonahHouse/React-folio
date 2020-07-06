@@ -6,8 +6,8 @@ const Element = new Schema({
   attributes: Object,
   user: {
     type: Schema.Types.ObjectId,
-    ref: "User",
-  },
-});
+    ref: "User"
+  }
+})
 
-module.exports = model("Element", Element);
+module.exports = model("Element", Element)

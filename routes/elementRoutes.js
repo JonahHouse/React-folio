@@ -10,7 +10,6 @@ router.get("/elements", passport.authenticate("jwt"), (req, res) => {
     .catch((err) => console.error(err));
 });
 
-
 router.post("/elements", passport.authenticate("jwt"), (req, res) => {
   Element.create({
     type: req.body.type,
@@ -30,9 +29,14 @@ router.post("/elements", passport.authenticate("jwt"), (req, res) => {
     .catch((err) => console.error(err));
 });
 
+router.put('/elements/:id', passport.authenticate("jwt"), (req, res) => {
+  Element.findByIdAndUpdate(req.params.id, { $set: req.body })
+    .then(() => res.sendStatus(200))
+    .catch(err => console.error(err))
+})
 
 router.delete("/elements/:id", passport.authenticate("jwt"), (req, res) => {
   Element.delete({ id: req.body.id }, (err) => console.error(err));
 });
 
-module.exports = router;
+module.exports = router

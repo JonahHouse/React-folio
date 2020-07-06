@@ -14,5 +14,7 @@ const User = new Schema({
     ref: 'Page'
   }]
 })
+
 User.plugin(require('passport-local-mongoose'))
+
 module.exports = model('User', User)

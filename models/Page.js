@@ -13,4 +13,4 @@ const Page = new Schema({
   }
 })
 
-module.exports = model("Page", Page);
+module.exports = model("Page", Page)
