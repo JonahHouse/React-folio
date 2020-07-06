@@ -19,7 +19,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'white',
+    padding: '10px 20px 20px 20px'
   },
   avatar: {
     margin: theme.spacing(1),
@@ -161,7 +163,8 @@ const Register = () => {
         </form>
       </div>
       <Box mt={5} />
-    </Container >
+    </Container>
   )
-};
+}
+
 export default Register
