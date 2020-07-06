@@ -16,7 +16,6 @@ import Paper from "@material-ui/core/Paper";
 import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import ElementAPI from "../../utils/ElementAPI";
 import UserTextBox from "../../components/UserTextBox";
 import ElementContext from "../../utils/ElementContext";
@@ -122,8 +121,11 @@ const Dashboard = () => {
     elements: [],
     type: '',
     attributes: {}
-
   });
+
+  const preview = () => {
+    window.location = "/preview"
+  }
 
   const signOut = () => {
     localStorage.removeItem('user');
@@ -216,6 +218,9 @@ const Dashboard = () => {
             >
               Dashboard
             </Typography>
+            <Button color="inherit" onClick={() => preview()}>
+              Preview
+            </Button>
             <Button color="inherit" onClick={() => signOut()}>
               Sign Out
             </Button>
