@@ -10,10 +10,8 @@ import Register from './pages/Register'
 import Navbar from './components/Navbar'
 import Dashboard from './pages/Dashboard'
 import Home from './pages/Home'
-import Footer from './components/Footer'
 
 const App = () => {
-
   return (
     <Router>
       <div>
