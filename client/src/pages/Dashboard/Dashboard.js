@@ -199,14 +199,14 @@ const Dashboard = () => {
   };
 
   let elementArray = (elementState.elements) ? elementState.elements : [];
-  let navbars = elementArray.filter(element => element.type === "navbar");
-  let footers = elementArray.filter(element => element.type === "footer");
+  let navbars = elementArray.filter(element => { return element.type === "navbar" });
+  let footers = elementArray.filter(element => { return element.type === "footer" });
   let footer = footers[footers.length - 1];
-  let heros = elementArray.filter(element => element.type === "hero");
+  let heros = elementArray.filter(element => { return element.type === "hero" });
   let hero = heros[heros.length - 1]
   let navbar = navbars[navbars.length - 1];
-  let buttons = elementArray.filter(element => element.type === "button")
-  let cards = elementArray.filter(element => element.type === "card")
+  let buttons = elementArray.filter(element => { return element.type === "button" })
+  let cards = elementArray.filter(element => { return element.type === "card" })
 
   return (
     <ElementContext.Provider value={elementState}>
