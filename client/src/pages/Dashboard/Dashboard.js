@@ -144,7 +144,8 @@ const Dashboard = () => {
   useEffect(() => {
     getElements()
       .then(({ data }) => {
-        setElementState({ ...elementState, elements: data });
+        console.log(data)
+        setElementState({ ...elementState, elements: [data] });
       })
       .catch((err) => console.error(err));
   }, []);
