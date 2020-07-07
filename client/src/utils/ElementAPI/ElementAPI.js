@@ -1,12 +1,12 @@
 import axios from 'axios'
 
 const ElementAPI = {
-  getElements: () => axios.get('/elements', {
+  getElements: () => axios.get('/api/elements', {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('user')}`
     }
   }),
-  createElement: element => axios.post('/elements', element, {
+  createElement: element => axios.post('/api/elements', element, {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('user')}`
     }
@@ -16,7 +16,7 @@ const ElementAPI = {
       'Authorization': `Bearer ${localStorage.getItem('user')}`
     }
   }),
-  deleteElement: id => axios.delete(`/elements/${id}`, {
+  deleteElement: id => axios.delete(`/api/elements/${id}`, {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('user')}`
     }
