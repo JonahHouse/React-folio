@@ -54,7 +54,7 @@ const Register = () => {
 
   registerState.handleRegister = event => {
     event.preventDefault()
-    axios.post('http://localhost:3001/api/users/register', {
+    axios.post('/api/users/register', {
       name: `${registerState.firstName} ${registerState.lastName}`,
       email: registerState.email,
       username: registerState.username,

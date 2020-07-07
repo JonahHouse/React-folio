@@ -51,7 +51,7 @@ const Login = () => {
 
   loginState.handleLogin = event => {
     event.preventDefault()
-    axios.post('http://localhost:3001/api/users/login', {
+    axios.post('/api/users/login', {
       username: loginState.username,
       password: loginState.password
     })
