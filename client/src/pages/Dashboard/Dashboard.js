@@ -198,7 +198,8 @@ const Dashboard = () => {
       .catch((err) => console.error(err));
   };
 
-  let elementArray = (elementState.elements) ? elementState.elements : [];
+  let elementArray = elementState.elements;
+  console.log(elementArray)
   let navbars = elementArray.filter(element => { return element.type === "navbar" });
   let footers = elementArray.filter(element => { return element.type === "footer" });
   let footer = footers[footers.length - 1];
