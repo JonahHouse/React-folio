@@ -9,7 +9,8 @@ const useStyles = makeStyles((theme) => ({
 
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6)
+    padding: theme.spacing(8, 0, 6),
+    backgroundSize: "cover"
   },
   heroButtons: {
     marginTop: theme.spacing(4)
@@ -18,10 +19,13 @@ const useStyles = makeStyles((theme) => ({
 
 const UserHero = (props) => {
   const classes = useStyles();
+  const background = props.backgroundImage
 
   return (
-    <div className={classes.heroContent}>
-      <Container maxWidth="sm">
+    <div className={classes.heroContent} style={{
+      backgroundImage: `url(${background})`
+    }}>
+      < Container maxWidth="sm" >
         <Typography
           component="h1" variant="h2" align="center" color="textPrimary" name="heroTitle" value={props.heroTitle} gutterBottom >
           {props.heroTitle}
@@ -43,8 +47,8 @@ const UserHero = (props) => {
             </Grid>
           </Grid>
         </div>
-      </Container>
-    </div>
+      </Container >
+    </div >
   )
 }
 

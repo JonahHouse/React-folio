@@ -32,7 +32,7 @@ const App = () => {
             {(localStorage.getItem('user')) ? <Dashboard /> : <Redirect to="/login"></Redirect>}
           </Route>
           <Route exact path="/:id">
-            {(localStorage.getItem('user')) ? <Publish /> : <Redirect to="/login"></Redirect>}
+            <Publish />
           </Route>
         </Switch>
       </div>

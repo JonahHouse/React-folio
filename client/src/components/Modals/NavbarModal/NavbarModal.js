@@ -53,9 +53,8 @@ const NavbarModal = () => {
         onClose={handleNavbarModalClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Enter Site Labels Here</DialogTitle>
+        <DialogTitle id="form-dialog-title">Add A NavBar</DialogTitle>
         <DialogContent>
-          <DialogContentText>Site Name</DialogContentText>
           <form
             onSubmit={handleAddElement}
           >
@@ -71,17 +70,40 @@ const NavbarModal = () => {
               value={attributes.siteTitle}
               onChange={(event) => handleInputChange(event, "navbar")}
             />
-            <DialogContentText>Site Link 1</DialogContentText>
             <TextField
               className={classes.input}
               autoFocus
               margin="dense"
               id="element"
-              label="Site Link 1"
+              label="LinkedIn Link"
               type="text"
               fullWidth
-              name="siteLink1"
-              value={attributes.siteLink1}
+              name="linkedin"
+              value={attributes.linkedin}
+              onChange={(event) => handleInputChange(event, "navbar")}
+            />
+            <TextField
+              className={classes.input}
+              autoFocus
+              margin="dense"
+              id="element"
+              label="GitHub Link"
+              type="text"
+              fullWidth
+              name="github"
+              value={attributes.github}
+              onChange={(event) => handleInputChange(event, "navbar")}
+            />
+            <TextField
+              className={classes.input}
+              autoFocus
+              margin="dense"
+              id="element"
+              label="Instagram Link"
+              type="text"
+              fullWidth
+              name="instagram"
+              value={attributes.instagram}
               onChange={(event) => handleInputChange(event, "navbar")}
             />
           </form>

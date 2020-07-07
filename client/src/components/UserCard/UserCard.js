@@ -15,6 +15,12 @@ const useStyles = makeStyles({
   media: {
     height: 140,
   },
+  cardBody: {
+    maxWidth: "313px !important",
+    overflowWrap: "normal !important",
+    wordWrap: "break-word",
+    whiteSpace: "normal"
+  }
 });
 
 const UserCard = (props) => {
@@ -33,7 +39,7 @@ const UserCard = (props) => {
           <Typography gutterBottom variant="h5" component="h2" value={props.CardTitle} name="cardTitle">
             {props.cardTitle}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p" name="cardBody" value={props.cardBody}>
+          <Typography className={classes.cardBody} variant="body2" color="textSecondary" component="p" name="cardBody" value={props.cardBody}>
             {props.cardBody}
           </Typography>
         </CardContent>

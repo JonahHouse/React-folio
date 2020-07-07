@@ -53,9 +53,8 @@ const HeroModal = () => {
         onClose={handleHeroModalClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Enter Hero Text Here</DialogTitle>
+        <DialogTitle id="form-dialog-title">Add A Hero</DialogTitle>
         <DialogContent>
-          <DialogContentText>Hero Title</DialogContentText>
           <form
             onSubmit={handleAddElement}
           >
@@ -108,6 +107,18 @@ const HeroModal = () => {
               fullWidth
               name="heroBtn2"
               value={attributes.heroBtn2}
+              onChange={(event) => handleInputChange(event, "hero")}
+            />
+            <TextField
+              className={classes.input}
+              autoFocus
+              margin="dense"
+              id="element"
+              label="Background Image"
+              type="text"
+              fullWidth
+              name="backgroundImage"
+              value={attributes.backgroundImage}
               onChange={(event) => handleInputChange(event, "hero")}
             />
           </form>

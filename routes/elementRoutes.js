@@ -26,6 +26,13 @@ router.post("/elements", passport.authenticate("jwt"), (req, res) => {
     .catch((err) => console.error(err));
 });
 
+router.get('/elements/:id', (req, res) => {
+  User.findById(req.params.id)
+    .populate('elements')
+    .then(data => res.json(data))
+    .catch(err => console.error(err))
+})
+
 router.put('/elements/:id', passport.authenticate("jwt"), (req, res) => {
   Element.findByIdAndUpdate(req.params.id, { $set: req.body })
     .then(() => res.sendStatus(200))

@@ -6,6 +6,7 @@ const ElementAPI = {
       'Authorization': `Bearer ${localStorage.getItem('user')}`
     }
   }),
+  getElementsByUserId: (id) => axios.get(`/api/elements/${id}`),
   createElement: element => axios.post('/api/elements', element, {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('user')}`

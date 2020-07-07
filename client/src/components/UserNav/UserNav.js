@@ -5,6 +5,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import MenuIcon from '@material-ui/icons/Menu';
 import ElementContext from '../../utils/ElementContext'
 import ElementAPI from '../../utils/ElementAPI'
@@ -28,9 +31,6 @@ const UserNav = (props) => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
           <Typography
             variant="h6"
             className={classes.title}
@@ -38,20 +38,24 @@ const UserNav = (props) => {
             name="siteTitle">
             {props.siteTitle}
           </Typography>
-          <Button
-            color="inherit"
-            value={props.siteLink1}
-            name="siteLink1">
-            {props.siteLink1}</Button>
-          <Button
-            color="inherit"
-            value={props.siteLink2}
-            name="siteLink2">
-            {props.siteLink2}</Button>
-
+          {
+            (props.linkedin) ? <IconButton
+              href={props.linkedin}
+              target="_blank"><LinkedInIcon style={{ fill: "white" }}></LinkedInIcon></IconButton> : null
+          }
+          {
+            (props.github) ? <IconButton
+              href={props.github}
+              target="_blank"><GitHubIcon style={{ fill: "white" }}></GitHubIcon></IconButton> : null
+          }
+          {
+            (props.instagram) ? <IconButton
+              href={props.instagram}
+              target="_blank"><InstagramIcon style={{ fill: "white" }}></InstagramIcon></IconButton> : null
+          }
         </Toolbar>
       </AppBar>
-    </div>
+    </div >
   )
 }
 

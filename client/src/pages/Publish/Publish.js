@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
-const { getElements, createElement, updateElement, deleteElement } = ElementAPI
+const { getElements, getElementsByUserId, createElement, updateElement, deleteElement } = ElementAPI
 
 const Publish = () => {
   const classes = useStyles()
@@ -39,9 +39,9 @@ const Publish = () => {
   console.log(id);
 
   useEffect(() => {
-    getElements()
+    getElementsByUserId(id)
       .then(({ data }) => {
-        setElementState({ ...elementState, elements: data })
+        setElementState({ ...elementState, elements: data.elements })
       })
       .catch((err) => console.error(err))
   }, [])
@@ -65,8 +65,9 @@ const Publish = () => {
               <UserNav
                 siteTitle={navbar.attributes.siteTitle
                 }
-                siteLink1={navbar.attributes.siteLink1}
-                siteLink2={navbar.attributes.siteLink2}
+                instagram={navbar.attributes.instagram}
+                linkedin={navbar.attributes.linkedin}
+                github={navbar.attributes.github}
               ></UserNav>
               : null
           }
@@ -77,20 +78,39 @@ const Publish = () => {
             (hero) ? <UserHero
               heroTitle={hero.attributes.heroTitle} heroParagraph={hero.attributes.heroParagraph}
               heroBtn1={hero.attributes.heroBtn1}
-              heroBtn2={hero.attributes.heroBtn2}>
+              heroBtn2={hero.attributes.heroBtn2}
+              backgroundImage={hero.attributes.backgroundImage}>
             </UserHero> : null
           }
         </div>
 
         <div className="user-body">
-
+          <Box display="flex" flexDirection="row" justifyContent="center">
+            {
+              cards.map((card, index) => {
+                return <div style={{ margin: "20px" }}>
+                  <UserCard
+                    cardTitle={card.attributes.cardTitle}
+                    cardBody={card.attributes.cardBody}
+                    cardImage={card.attributes.cardImage}
+                    cardButtonLink={card.attributes.cardButtonLink}
+                    cardButtonText={card.attributes.cardButtonText}
+                    key={index}>
+                  </UserCard>
+                </div>
+              })
+            }
+          </Box>
         </div>
 
         <div className="user-footer">
-          <UserFooter>
-
-          </UserFooter>
-
+          {
+            (footer) ?
+              <UserFooter
+                siteTitle={footer.attributes.siteTitle}
+              ></UserFooter>
+              : null
+          }
         </div>
       </div>
 

@@ -83,6 +83,8 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
+      alignItems: "center",
+
     }),
   },
   drawerPaperClose: {
@@ -149,8 +151,11 @@ const Dashboard = () => {
       .catch((err) => console.error(err));
   }, []);
 
-  const preview = () => {
-    window.location = "/preview"
+  const home = () => {
+    window.location = "/"
+  }
+  const publish = () => {
+    window.location = "/publish"
   }
   const signOut = () => {
     localStorage.removeItem('user');
@@ -161,6 +166,7 @@ const Dashboard = () => {
     let newAttribute = { [event.target.name]: event.target.value }
     let attributes = { ...elementState.attributes, ...newAttribute };
     setElementState({
+      ...elementState,
       attributes: attributes
     });
   }
@@ -172,6 +178,7 @@ const Dashboard = () => {
       attributes: elementState.attributes
     })
       .then(({ data }) => {
+        elementState.elements.push(data)
         setElementState({ ...elementState, type: "", attributes: {} });
       })
       .catch((err) => console.error(err));
@@ -239,8 +246,11 @@ const Dashboard = () => {
             >
               Dashboard
             </Typography>
-            <Button color="inherit" onClick={() => preview()}>
-              Preview
+            <Button color="inherit" onClick={() => home()}>
+              Home
+            </Button>
+            <Button color="inherit" onClick={() => publish()}>
+              Publish
             </Button>
             <Button color="inherit" onClick={() => signOut()}>
               Sign Out
@@ -248,24 +258,19 @@ const Dashboard = () => {
           </Toolbar>
         </AppBar>
 
-        {open ? (
-          <Drawer
-            variant="permanent"
-            classes={{
-              paper: clsx(
-                classes.drawerPaper,
-                !open && classes.drawerPaperClose
-              ),
-            }}
-            open={open}
-          >
-            <div className={classes.toolbarIcon}>
-              <IconButton onClick={handleDrawerClose}>
-                <ChevronLeftIcon />
-              </IconButton>
-            </div>
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: clsx(
+              classes.drawerPaper,
+              !open && classes.drawerPaperClose
+            ),
+          }}
+          open={open}>
+          <div className={classes.toolbar} />
+          <Divider />
 
-            {/* <TextBoxModal></TextBoxModal> */}
+          <Container id="sidebarContainer" textAlign="center">
             <br />
             <NavbarModal></NavbarModal>
             <br />
@@ -276,9 +281,9 @@ const Dashboard = () => {
             <CardModal></CardModal>
             <br />
             <FooterModal></FooterModal>
+          </Container>
+        </Drawer>
 
-          </Drawer>
-        ) : null}
 
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
@@ -301,8 +306,9 @@ const Dashboard = () => {
                           <UserNav
                             siteTitle={navbar.attributes.siteTitle
                             }
-                            siteLink1={navbar.attributes.siteLink1}
-                            siteLink2={navbar.attributes.siteLink2}
+                            instagram={navbar.attributes.instagram}
+                            linkedin={navbar.attributes.linkedin}
+                            github={navbar.attributes.github}
                           ></UserNav>
                           <ModifyElement
                             elementId={navbar._id}
@@ -326,11 +332,18 @@ const Dashboard = () => {
                   >
                     Header Edit Section
                     {
-                      (hero) ? <UserHero
-                        heroTitle={hero.attributes.heroTitle} heroParagraph={hero.attributes.heroParagraph}
-                        heroBtn1={hero.attributes.heroBtn1}
-                        heroBtn2={hero.attributes.heroBtn2}>
-                      </UserHero> : null
+                      (hero) ? <>
+                        <UserHero
+                          heroTitle={hero.attributes.heroTitle} heroParagraph={hero.attributes.heroParagraph}
+                          heroBtn1={hero.attributes.heroBtn1}
+                          heroBtn2={hero.attributes.heroBtn2}
+                          backgroundImage={hero.attributes.backgroundImage}>
+                        </UserHero>
+                        <ModifyElement
+                          elementId={hero._id}
+                          handleDeleteElement={elementState.handleDeleteElement}
+                        ></ModifyElement>
+                      </> : null
                     }
                   </Typography>
                 </Paper>
@@ -354,18 +367,26 @@ const Dashboard = () => {
                           btnLink={button.attributes.btnLink}></UserBtn>
                       })
                     }
-                    {
-                      cards.map((card, index) => {
-                        return <UserCard
-                          cardTitle={card.attributes.cardTitle}
-                          cardBody={card.attributes.cardBody}
-                          cardImage={card.attributes.cardImage}
-                          cardButtonLink={card.attributes.cardButtonLink}
-                          cardButtonText={card.attributes.cardButtonText}
-                          key={index}>
-                        </UserCard>
-                      })
-                    }
+                    <Box display="flex" flexDirection="row" justifyContent="space-around">
+                      {
+                        cards.map((card, index) => {
+                          return <div style={{ margin: "20px" }}>
+                            <UserCard
+                              cardTitle={card.attributes.cardTitle}
+                              cardBody={card.attributes.cardBody}
+                              cardImage={card.attributes.cardImage}
+                              cardButtonLink={card.attributes.cardButtonLink}
+                              cardButtonText={card.attributes.cardButtonText}
+                              key={index}>
+                            </UserCard>
+                            <ModifyElement
+                              elementId={card._id}
+                              handleDeleteElement={elementState.handleDeleteElement}
+                            ></ModifyElement>
+                          </div>
+                        })
+                      }
+                    </Box>
                   </Typography>
                 </Paper>
               </Grid>
@@ -395,8 +416,8 @@ const Dashboard = () => {
             <Box pt={4}></Box>
           </Container>
         </main>
-      </div>
-    </ElementContext.Provider>
+      </div  >
+    </ElementContext.Provider >
   );
 };
 
