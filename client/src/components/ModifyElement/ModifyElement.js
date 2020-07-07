@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from '@material-ui/icons/Delete'
-import EditIcon from '@material-ui/icons/Edit'
+// import EditIcon from '@material-ui/icons/Edit'
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import ElementContext from '../../utils/ElementContext'
@@ -21,12 +21,11 @@ const ModifyElement = (props) => {
   const { elements, element, attributes, handleDeleteElement, handleUpdateElement } = useContext(
     ElementContext
   )
+
   const {
     updateElement,
     deleteElement,
   } = ElementAPI;
-
-
 
   return (
     <div className={classes.modifyButtons}  >
@@ -37,12 +36,12 @@ const ModifyElement = (props) => {
           >
           </DeleteIcon>
         </Grid>
-        <Grid item>
+        {/* <Grid item>
           <EditIcon
-            onClick={() => props.handleUpdateElement(props.elementId)}
+            onClick={() => handleNavbarClickOpen()}
           >
           </EditIcon>
-        </Grid>
+        </Grid> */}
       </Grid>
     </div>
   )

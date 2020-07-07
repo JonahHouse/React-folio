@@ -10,6 +10,7 @@ import Register from './pages/Register'
 import Navbar from './components/Navbar'
 import Dashboard from './pages/Dashboard'
 import Home from './pages/Home'
+import Publish from './pages/Publish'
 import Footer from './components/Footer'
 
 const App = () => {
@@ -17,7 +18,6 @@ const App = () => {
   return (
     <Router>
       <div>
-        <Navbar />
         <Switch>
           <Route exact path="/">
             {(localStorage.getItem('user')) ? <Home></Home> : <Redirect to="/login"></Redirect>}
@@ -30,6 +30,9 @@ const App = () => {
           </Route>
           <Route exact path="/Dashboard">
             {(localStorage.getItem('user')) ? <Dashboard /> : <Redirect to="/login"></Redirect>}
+          </Route>
+          <Route exact path="/:id">
+            {(localStorage.getItem('user')) ? <Publish /> : <Redirect to="/login"></Redirect>}
           </Route>
         </Switch>
       </div>

@@ -4,12 +4,11 @@ const passport = require("passport");
 const jwt = require('jsonwebtoken');
 
 router.get("/elements", passport.authenticate("jwt"), (req, res) => {
-  Element.find()
+  Element.find({ user: req.user._id })
     .populate("user")
     .then((elements) => res.json(elements))
     .catch((err) => console.error(err));
 });
-
 
 router.post("/elements", passport.authenticate("jwt"), (req, res) => {
   Element.create({
@@ -18,7 +17,7 @@ router.post("/elements", passport.authenticate("jwt"), (req, res) => {
     user: req.user._id
   })
     .then((element) => {
-      User.findByIdAndUpdate(req.user._id, { $push: { elements: element._id } })
+      User.findByIdAndUpdate(req.user._id, { $push: { elements: element } })
         .then(() =>
           res.json(req.body)
         )

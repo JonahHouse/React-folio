@@ -16,11 +16,11 @@ const CardModal = () => {
 
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
+  const handleCardClickOpen = () => {
     setOpen(true);
   };
 
-  const handleModalClose = () => {
+  const handleCardModalClose = () => {
     setOpen(false);
   };
 
@@ -39,12 +39,12 @@ const CardModal = () => {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button variant="outlined" color="primary" onClick={handleCardClickOpen}>
         Card
       </Button>
       <Dialog
         open={open}
-        onClose={handleModalClose}
+        onClose={handleCardModalClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Add Card</DialogTitle>
@@ -121,12 +121,12 @@ const CardModal = () => {
 
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleModalClose} color="secondary">
+          <Button onClick={handleCardModalClose} color="secondary">
             Cancel
           </Button>
           <Button
             onClick={(event) => {
-              handleAddElement(event, "card"); handleModalClose();
+              handleAddElement(event, "card"); handleCardModalClose();
             }}
             color="primary"
           >

@@ -25,11 +25,11 @@ const ButtonModal = () => {
 
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
+  const handleButtonClickOpen = () => {
     setOpen(true);
   };
 
-  const handleModalClose = () => {
+  const handleButtonModalClose = () => {
     setOpen(false);
   };
 
@@ -46,12 +46,12 @@ const ButtonModal = () => {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button variant="outlined" color="primary" onClick={handleButtonClickOpen}>
         Button
       </Button>
       <Dialog
         open={open}
-        onClose={handleModalClose}
+        onClose={handleButtonModalClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Enter Your Button Text Here</DialogTitle>
@@ -89,12 +89,12 @@ const ButtonModal = () => {
 
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleModalClose} color="secondary">
+          <Button onClick={handleButtonModalClose} color="secondary">
             Cancel
           </Button>
           <Button
             onClick={(event) => {
-              handleAddElement(event, "button"); handleModalClose();
+              handleAddElement(event, "button"); handleButtonModalClose();
             }}
             color="primary"
           >

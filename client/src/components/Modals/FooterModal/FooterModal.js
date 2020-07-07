@@ -24,11 +24,11 @@ const FooterModal = () => {
 
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
+  const handleFooterClickOpen = () => {
     setOpen(true);
   };
 
-  const handleModalClose = () => {
+  const handleFooterModalClose = () => {
     setOpen(false);
   };
 
@@ -47,12 +47,12 @@ const FooterModal = () => {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button variant="outlined" color="primary" onClick={handleFooterClickOpen}>
         Footer
       </Button>
       <Dialog
         open={open}
-        onClose={handleModalClose}
+        onClose={handleFooterModalClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Enter Site Labels Here</DialogTitle>
@@ -77,12 +77,12 @@ const FooterModal = () => {
 
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleModalClose} color="secondary">
+          <Button onClick={handleFooterModalClose} color="secondary">
             Cancel
           </Button>
           <Button
             onClick={(event) => {
-              handleAddElement(event, "footer"); handleModalClose();
+              handleAddElement(event, "footer"); handleFooterModalClose();
             }}
             color="primary"
           >

@@ -149,6 +149,9 @@ const Dashboard = () => {
       .catch((err) => console.error(err));
   }, []);
 
+  const preview = () => {
+    window.location = "/preview"
+  }
   const signOut = () => {
     localStorage.removeItem('user');
     window.location = "/"
@@ -158,9 +161,9 @@ const Dashboard = () => {
     let newAttribute = { [event.target.name]: event.target.value }
     let attributes = { ...elementState.attributes, ...newAttribute };
     setElementState({
+      ...elementState,
       attributes: attributes
     });
-    console.log(elementState.attributes);
   }
 
   elementState.handleAddElement = (event, type) => {
@@ -170,19 +173,20 @@ const Dashboard = () => {
       attributes: elementState.attributes
     })
       .then(({ data }) => {
+        elementState.elements.push(data);
         setElementState({ ...elementState, type: "", attributes: {} });
       })
       .catch((err) => console.error(err));
   };
 
-  // elementState.handleUpdateElement = (id) => {
-  //   updateElement(id)
-  //     .then(() => {
-  //       const elements = JSON.parse(JSON.stringify(elementState.elements));
-  //       setElementState({ ...elementState, elements });
-  //     })
-  //     .catch((err) => console.error(err));
-  // };
+  elementState.handleUpdateElement = (id) => {
+    updateElement(id)
+      .then(() => {
+        const elements = JSON.parse(JSON.stringify(elementState.elements));
+        setElementState({ ...elementState, elements });
+      })
+      .catch((err) => console.error(err));
+  };
 
   elementState.handleDeleteElement = (id) => {
     deleteElement(id)
@@ -236,6 +240,9 @@ const Dashboard = () => {
             >
               Dashboard
             </Typography>
+            <Button color="inherit" onClick={() => preview()}>
+              Preview
+            </Button>
             <Button color="inherit" onClick={() => signOut()}>
               Sign Out
             </Button>
@@ -267,10 +274,9 @@ const Dashboard = () => {
             <br />
             <ButtonModal></ButtonModal>
             <br />
-            <FooterModal></FooterModal>
-            <br />
             <CardModal></CardModal>
-
+            <br />
+            <FooterModal></FooterModal>
 
           </Drawer>
         ) : null}
@@ -301,11 +307,11 @@ const Dashboard = () => {
                           ></UserNav>
                           <ModifyElement
                             elementId={navbar._id}
-                            handleDeleteElement={elementState.handleDeleteElement}></ModifyElement>
+                            handleDeleteElement={elementState.handleDeleteElement}
+                          ></ModifyElement>
                         </>
                         : null
                     }
-
 
                   </Typography>
                 </Paper>
@@ -342,15 +348,12 @@ const Dashboard = () => {
                     className={classes.title}
                   >
                     Body Edit Section
-
-
                     {
                       buttons.map((button, index) => {
                         return <UserBtn key={index}
                           btnText={button.attributes.btnText}
                           btnLink={button.attributes.btnLink}></UserBtn>
-                      }
-                      )
+                      })
                     }
                     {
                       cards.map((card, index) => {
@@ -379,14 +382,13 @@ const Dashboard = () => {
                     className={classes.title}
                   >
                     Footer Edit Section
-                     {
+                    {
                       (footer) ?
                         <UserFooter
                           siteTitle={footer.attributes.siteTitle}
                         ></UserFooter>
                         : null
                     }
-
                   </Typography>
                 </Paper>
               </Grid>
@@ -395,7 +397,7 @@ const Dashboard = () => {
           </Container>
         </main>
       </div>
-    </ElementContext.Provider >
+    </ElementContext.Provider>
   );
 };
 

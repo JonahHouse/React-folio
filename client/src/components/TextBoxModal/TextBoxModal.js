@@ -25,15 +25,15 @@ const TextBoxModal = () => {
 
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
+  const handleTextboxClickOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleTextboxModalClose = () => {
     setOpen(false);
   };
 
-  const { element, handleInputChange, handleAddElement } = useContext(
+  const { attributes, handleInputChange, handleAddElement } = useContext(
     ElementContext
   );
 
@@ -71,12 +71,12 @@ const TextBoxModal = () => {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button variant="outlined" color="primary" onClick={handleTextboxClickOpen}>
         Text Box
       </Button>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={handleTextboxModalClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Enter Your Text Here</DialogTitle>
@@ -93,7 +93,7 @@ const TextBoxModal = () => {
               id="element"
               label="element"
               type="text"
-              value={element.text}
+              value={attributes.text}
               fullWidth
               name="element"
               onChange={(event) => handleInputChange(event, "textbox")}
@@ -102,18 +102,18 @@ const TextBoxModal = () => {
 
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="secondary">
+          <Button onClick={handleTextboxModalClose} color="secondary">
             Cancel
           </Button>
           <Button
-            onClick={(event) => handleAddElement(event, "textbox")}
+            onClick={(event) => { handleAddElement(event, "textbox"); handleTextboxModalClose() }}
             color="primary"
           >
             Update
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </div >
   );
 };
 

@@ -1,0 +1,101 @@
+import React, { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom'
+import clsx from "clsx";
+import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
+import ElementAPI from '../../utils/ElementAPI';
+import UserTextBox from '../../components/UserTextBox';
+import ElementContext from '../../utils/ElementContext';
+import Button from '@material-ui/core/Button';
+import UserNav from '../../components/UserNav'
+import UserBtn from '../../components/UserBtn'
+import UserHero from '../../components/UserHero'
+import UserFooter from '../../components/UserFooter'
+import UserCard from '../../components/UserCard'
+import './publish.css'
+
+const useStyles = makeStyles((theme) => ({
+
+}))
+
+const { getElements, createElement, updateElement, deleteElement } = ElementAPI
+
+const Publish = () => {
+  const classes = useStyles()
+
+  const [elementState, setElementState] = useState({
+    elements: [],
+    type: '',
+    attributes: {}
+  })
+
+  let { id } = useParams();
+  console.log(id);
+
+  useEffect(() => {
+    getElements()
+      .then(({ data }) => {
+        setElementState({ ...elementState, elements: data })
+      })
+      .catch((err) => console.error(err))
+  }, [])
+
+  const elementArray = (elementState.elements) ? elementState.elements : []
+  let navbars = elementArray.filter(element => element.type === 'navbar')
+  let footers = elementArray.filter(element => element.type === 'footer')
+  let footer = footers[footers.length - 1]
+  let heros = elementArray.filter(element => element.type === 'hero')
+  let hero = heros[heros.length - 1]
+  const navbar = navbars[navbars.length - 1]
+  let buttons = elementArray.filter(element => element.type === 'button')
+  const cards = elementArray.filter(element => element.type === 'card')
+
+  return (
+    <ElementContext.Provider value={elementState}>
+      <div className="userpage">
+        <div className="user-nav">
+          {
+            (navbar) ?
+              <UserNav
+                siteTitle={navbar.attributes.siteTitle
+                }
+                siteLink1={navbar.attributes.siteLink1}
+                siteLink2={navbar.attributes.siteLink2}
+              ></UserNav>
+              : null
+          }
+        </div>
+
+        <div className="user-hero">
+          {
+            (hero) ? <UserHero
+              heroTitle={hero.attributes.heroTitle} heroParagraph={hero.attributes.heroParagraph}
+              heroBtn1={hero.attributes.heroBtn1}
+              heroBtn2={hero.attributes.heroBtn2}>
+            </UserHero> : null
+          }
+        </div>
+
+        <div className="user-body">
+
+        </div>
+
+        <div className="user-footer">
+          <UserFooter>
+
+          </UserFooter>
+
+        </div>
+      </div>
+
+    </ElementContext.Provider >
+  )
+}
+
+export default Publish;

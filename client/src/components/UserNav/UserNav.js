@@ -11,19 +11,17 @@ import ElementAPI from '../../utils/ElementAPI'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
   title: {
-    flexGrow: 1,
-  },
+    flexGrow: 1
+  }
 }));
 
 const UserNav = (props) => {
-
-
   const classes = useStyles();
 
   return (
@@ -53,7 +51,7 @@ const UserNav = (props) => {
 
         </Toolbar>
       </AppBar>
-    </div >
+    </div>
   )
 }
 

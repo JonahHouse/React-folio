@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
+const publish = () => {
+  window.location = '/publish'
+}
 const signOut = () => {
   localStorage.removeItem('user');
   window.location = "/"
@@ -34,22 +37,28 @@ const Navbar = () => {
 
   const links = localStorage.getItem('user') ?
     <>
+      <Link to="/" className={classes.link}>
+        <Button color="inherit">Home</Button>
+      </Link>
       <Link to="/dashboard" className={classes.link}>
         <Button color="inherit">Dashboard</Button>
+      </Link>
+      <Link to="/:id" className={classes.link}>
+        <Button color="inherit">Publish</Button>
       </Link>
       <Button color="inherit" onClick={() => signOut()}>
         Sign Out
     </Button>
     </> :
     <>
+      <Link to="/" className={classes.link} >
+        <Button color="inherit">Home</Button>
+      </Link  >
       <Link to="/login" className={classes.link} >
         <Button color="inherit">Login</Button>
       </Link  >
       <Link to="/register" className={classes.link}>
         <Button color="inherit">SignUp</Button>
-      </Link>
-      <Link to="/dashboard" className={classes.link}>
-        <Button color="inherit">Dashboard</Button>
       </Link>
     </>;
 

@@ -14,7 +14,6 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-
 const UserTextBox = () => {
   const classes = useStyles()
 
@@ -38,11 +37,8 @@ const UserTextBox = () => {
               handleUpdateElement={handleUpdateElement}
               handleDeleteElement={handleDeleteElement}
             />
-
           ))
-
         }
-
       </Paper>
     </>
   )

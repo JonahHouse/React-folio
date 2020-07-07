@@ -24,11 +24,11 @@ const NavbarModal = () => {
 
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
+  const handleNavbarClickOpen = () => {
     setOpen(true);
   };
 
-  const handleModalClose = () => {
+  const handleNavbarModalClose = () => {
     setOpen(false);
   };
 
@@ -43,16 +43,14 @@ const NavbarModal = () => {
     deleteElement,
   } = ElementAPI;
 
-
-
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button variant="outlined" color="primary" onClick={handleNavbarClickOpen}>
         Navbar
       </Button>
       <Dialog
         open={open}
-        onClose={handleModalClose}
+        onClose={handleNavbarModalClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Enter Site Labels Here</DialogTitle>
@@ -90,12 +88,12 @@ const NavbarModal = () => {
 
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleModalClose} color="secondary">
+          <Button onClick={handleNavbarModalClose} color="secondary">
             Cancel
           </Button>
           <Button
             onClick={(event) => {
-              handleAddElement(event, "navbar"); handleModalClose();
+              handleAddElement(event, "navbar"); handleNavbarModalClose();
             }}
             color="primary"
           >

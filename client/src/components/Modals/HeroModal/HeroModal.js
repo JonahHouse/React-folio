@@ -24,11 +24,11 @@ const HeroModal = () => {
 
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
+  const handleHeroClickOpen = () => {
     setOpen(true);
   };
 
-  const handleModalClose = () => {
+  const handleHeroModalClose = () => {
     setOpen(false);
   };
 
@@ -45,12 +45,12 @@ const HeroModal = () => {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button variant="outlined" color="primary" onClick={handleHeroClickOpen}>
         Hero
       </Button>
       <Dialog
         open={open}
-        onClose={handleModalClose}
+        onClose={handleHeroModalClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Enter Hero Text Here</DialogTitle>
@@ -113,12 +113,12 @@ const HeroModal = () => {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleModalClose} color="secondary">
+          <Button onClick={handleHeroModalClose} color="secondary">
             Cancel
           </Button>
           <Button
             onClick={(event) => {
-              handleAddElement(event, "hero"); handleModalClose();
+              handleAddElement(event, "hero"); handleHeroModalClose();
             }}
             color="primary"
           >
