@@ -10,7 +10,8 @@ body {
   width: 100%;
 }
 
-.makeStyles-heroContent-5 {
+.makeStyles-heroContent-5,
+.js55 {
   display: flex;
   align-items: center;
   height: calc(100vh - 170px);
