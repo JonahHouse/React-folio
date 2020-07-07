@@ -161,7 +161,6 @@ const Dashboard = () => {
     let newAttribute = { [event.target.name]: event.target.value }
     let attributes = { ...elementState.attributes, ...newAttribute };
     setElementState({
-      ...elementState,
       attributes: attributes
     });
   }
@@ -173,7 +172,6 @@ const Dashboard = () => {
       attributes: elementState.attributes
     })
       .then(({ data }) => {
-        elementState.elements.push(data);
         setElementState({ ...elementState, type: "", attributes: {} });
       })
       .catch((err) => console.error(err));
