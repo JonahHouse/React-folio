@@ -10,7 +10,10 @@ const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
-    backgroundSize: "cover"
+    backgroundSize: "cover",
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center"
   },
   heroButtons: {
     marginTop: theme.spacing(4)
@@ -23,7 +26,7 @@ const UserHero = (props) => {
 
   return (
     <div className={classes.heroContent} style={{
-      backgroundImage: `url(${background})`, height: "100vh"
+      backgroundImage: `url(${background})`
     }}>
       < Container maxWidth="sm" >
         <Typography
