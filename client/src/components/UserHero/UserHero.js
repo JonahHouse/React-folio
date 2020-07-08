@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     height: "90vh",
     display: "flex",
-    justifyContent: "center"
+    alignItems: "center"
   },
   heroButtons: {
     marginTop: theme.spacing(4)
