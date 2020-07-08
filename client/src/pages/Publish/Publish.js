@@ -86,7 +86,7 @@ const Publish = () => {
 
         <div className="user-body">
           <ScrollAnimation animateIn="fadeIn">
-            <Box display="flex" flexDirection="row" justifyContent="center">
+            <Box display="flex" style={{ flexWrap: "wrap" }} flexDirection="row" justifyContent="center">
               {
                 cards.map((card, index) => {
                   return <div style={{ margin: "20px" }}>
