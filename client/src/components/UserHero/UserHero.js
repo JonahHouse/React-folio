@@ -23,7 +23,7 @@ const UserHero = (props) => {
 
   return (
     <div className={classes.heroContent} style={{
-      backgroundImage: `url(${background})`
+      backgroundImage: `url(${background})`, height: "100vh"
     }}>
       < Container maxWidth="sm" >
         <Typography
