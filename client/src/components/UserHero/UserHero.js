@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
     backgroundSize: "cover",
-    height: "100vh",
+    height: "90vh",
     display: "flex",
     justifyContent: "center"
   },
