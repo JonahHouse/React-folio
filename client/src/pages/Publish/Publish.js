@@ -18,6 +18,7 @@ import UserBtn from '../../components/UserBtn'
 import UserHero from '../../components/UserHero'
 import UserFooter from '../../components/UserFooter'
 import UserCard from '../../components/UserCard'
+import ScrollAnimation from 'react-animate-on-scroll';
 import './publish.css'
 
 const useStyles = makeStyles((theme) => ({
@@ -63,8 +64,7 @@ const Publish = () => {
           {
             (navbar) ?
               <UserNav
-                siteTitle={navbar.attributes.siteTitle
-                }
+                siteTitle={navbar.attributes.siteTitle}
                 instagram={navbar.attributes.instagram}
                 linkedin={navbar.attributes.linkedin}
                 github={navbar.attributes.github}
@@ -85,22 +85,24 @@ const Publish = () => {
         </div>
 
         <div className="user-body">
-          <Box display="flex" flexDirection="row" justifyContent="center">
-            {
-              cards.map((card, index) => {
-                return <div style={{ margin: "20px" }}>
-                  <UserCard
-                    cardTitle={card.attributes.cardTitle}
-                    cardBody={card.attributes.cardBody}
-                    cardImage={card.attributes.cardImage}
-                    cardButtonLink={card.attributes.cardButtonLink}
-                    cardButtonText={card.attributes.cardButtonText}
-                    key={index}>
-                  </UserCard>
-                </div>
-              })
-            }
-          </Box>
+          <ScrollAnimation animateIn="fadeIn">
+            <Box display="flex" flexDirection="row" justifyContent="center">
+              {
+                cards.map((card, index) => {
+                  return <div style={{ margin: "20px" }}>
+                    <UserCard
+                      cardTitle={card.attributes.cardTitle}
+                      cardBody={card.attributes.cardBody}
+                      cardImage={card.attributes.cardImage}
+                      cardButtonLink={card.attributes.cardButtonLink}
+                      cardButtonText={card.attributes.cardButtonText}
+                      key={index}>
+                    </UserCard>
+                  </div>
+                })
+              }
+            </Box>
+          </ScrollAnimation>
         </div>
 
         <div className="user-footer">

@@ -140,12 +140,13 @@ const Dashboard = () => {
   const [elementState, setElementState] = useState({
     elements: [],
     type: '',
-    attributes: {}
+    attributes: {},
   });
 
   useEffect(() => {
     getElements()
       .then(({ data }) => {
+        localStorage.setItem('userId', data[0].user._id)
         setElementState({ ...elementState, elements: data });
       })
       .catch((err) => console.error(err));
@@ -154,12 +155,9 @@ const Dashboard = () => {
   const home = () => {
     window.location = "/"
   }
-  const publish = () => {
-    window.location = "/publish"
-  }
   const signOut = () => {
-    localStorage.removeItem('user');
-    window.location = "/"
+    localStorage.clear();
+    window.location = "/";
   }
 
   elementState.handleInputChange = (event) => {
@@ -249,7 +247,7 @@ const Dashboard = () => {
             <Button color="inherit" onClick={() => home()}>
               Home
             </Button>
-            <Button color="inherit" onClick={() => publish()}>
+            <Button color="inherit" href={localStorage.getItem('userId')} target="_blank">
               Publish
             </Button>
             <Button color="inherit" onClick={() => signOut()}>
@@ -362,9 +360,16 @@ const Dashboard = () => {
                     Body Edit Section
                     {
                       buttons.map((button, index) => {
-                        return <UserBtn key={index}
-                          btnText={button.attributes.btnText}
-                          btnLink={button.attributes.btnLink}></UserBtn>
+                        return <>
+                          <UserBtn key={index}
+                            btnText={button.attributes.btnText}
+                            btnLink={button.attributes.btnLink}>
+                          </UserBtn>
+                          <ModifyElement
+                            elementId={button._id}
+                            handleDeleteElement={elementState.handleDeleteElement}
+                          ></ModifyElement>
+                        </>
                       })
                     }
                     <Box display="flex" flexDirection="row" justifyContent="space-around">
