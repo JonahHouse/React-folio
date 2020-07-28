@@ -4,10 +4,10 @@ The React-folio app allows users to create their own portfolio by choosing from 
 
 Link to live app: http://pacific-forest-54922.herokuapp.com/
 
-Homepage
+Dashboard
 ![React-folio](./dashboard.png?raw=true "react-folio dashboard")
 -------------------------------------------------------------------
-Dashboard
+Sample Publish Page
 ![React-folio](./sample.png?raw=true "react-folio sample page")
 ----------------------------------------------------------------
 
