@@ -13,4 +13,4 @@ Sample Publish Page
 
 Technologies Used:
 ----------------------------------------------
-React JS for building the app and creating user components Passport for user authentication.
+React JS for building the app and creating user components. Passport is used for user authentication.
